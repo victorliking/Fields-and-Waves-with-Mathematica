@@ -1,0 +1,1818 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     72190,       1809]
+NotebookOptionsPosition[     69427,       1716]
+NotebookOutlinePosition[     69802,       1732]
+CellTagsIndexPosition[     69759,       1729]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Computer Lab 4: Lecture 11", "Title",
+ CellChangeTimes->{{3.6410559385127525`*^9, 3.6410559414485335`*^9}, 
+   3.6411222452306767`*^9, {3.641826883218768*^9, 3.641826891336664*^9}, {
+   3.642959639885213*^9, 3.64295964365359*^9}, {3.6445134003671627`*^9, 
+   3.6445134026711626`*^9}, {3.645714342562634*^9, 3.645714345601634*^9}}],
+
+Cell[TextData[{
+ "In our computer lab lectures we will work together through concepts and \
+challenges we have discussed over the week in class.  As with your \
+after-class Exercises, you will be expected to turn in your computer lab \
+notebooks before the nect lecture. Please do so by e-mailing your completed \
+*nb file to Lan Yu (",
+ ButtonBox["ece329.uiuc@gmail.com",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["mailto:lanyu2@illinois.edu"], None},
+  ButtonNote->"mailto:lanyu2@illinois.edu"],
+ "), make sure you name the file using the following notation: \
+\[OpenCurlyDoubleQuote]Ex",
+ StyleBox["n_Last_First",
+  FontSlant->"Italic"],
+ ".nb\[CloseCurlyDoubleQuote], where ",
+ StyleBox["n ",
+  FontSlant->"Italic"],
+ "is the Lecture number (in this case, 11), and ",
+ StyleBox["First ",
+  FontSlant->"Italic"],
+ "and ",
+ StyleBox["Last ",
+  FontSlant->"Italic"],
+ "would be your first and last name.  So my submission to Lan for this \
+computer lab would be titled \[OpenCurlyDoubleQuote]Ex11_Wasserman_Dan.nb\
+\[CloseCurlyDoubleQuote].  You will receive full credit for your copmputer \
+lab if it turned in before the next lecture (",
+ StyleBox["Lecture n+1",
+  FontSlant->"Italic"],
+ ").  No late submissions will be accepted."
+}], "Text",
+ CellChangeTimes->{{3.641056402865523*^9, 3.6410564501924195`*^9}, {
+   3.6411222567454033`*^9, 3.6411222607263775`*^9}, {3.6418268958480062`*^9, 
+   3.641826960201115*^9}, {3.641827004708915*^9, 3.641827119992915*^9}, {
+   3.6429596523914633`*^9, 3.6429596560308275`*^9}, {3.644513408856162*^9, 
+   3.644513413887162*^9}, {3.6457143560906343`*^9, 3.645714359121634*^9}, {
+   3.651766620362948*^9, 3.651766648959786*^9}, 3.651846006489952*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Objective/Overview:", "Section",
+ CellChangeTimes->{{3.641055962234193*^9, 3.641055967807358*^9}}],
+
+Cell["\<\
+In class this week we discussed the behavior of materials (conductors and \
+dielectrics) in the presence of electrostatic fields.  We then used this \
+knowledge to start looking at our first real electrical devices (capcitors).  \
+We used our ability to relate Electric Field, Charge, and Electrostatic \
+Potential to understand the relationship between charge and potential (which \
+gives us capcitance).  We also were able to describe the conductance \
+associated with our capcitive structures.  We looked at both parallel plate \
+capacitors, as well as coax structures, and were able to determine capcitance \
+and conductance (both total, and per unit length) of these structures.
+Up to know we have considered only static fields (thus electrostatics).  \
+However, as we move forward in the course, we will begin working more and \
+more with time-dependent fields.  Today we will take our first look at time \
+dependent fields, and in particular, how these fields interact with matter!\
+\>", "Text",
+ CellChangeTimes->{{3.6410559745017147`*^9, 3.6410560468394365`*^9}, {
+  3.641056100521486*^9, 3.6410563836320534`*^9}, {3.641056509872237*^9, 
+  3.641056514040411*^9}, {3.641058362580634*^9, 3.641058387984057*^9}, {
+  3.6411222843424263`*^9, 3.6411223047308955`*^9}, {3.641124639030492*^9, 
+  3.641124681600805*^9}, {3.6411500577648463`*^9, 3.6411500925658092`*^9}, {
+  3.641827131765315*^9, 3.641827197272315*^9}, {3.6418273188267155`*^9, 
+  3.6418273390009155`*^9}, {3.642254357385065*^9, 3.6422543577906647`*^9}, {
+  3.6429601231505346`*^9, 3.642960680307245*^9}, {3.642962050245225*^9, 
+  3.6429621458077803`*^9}, {3.642962179529152*^9, 3.6429622671809163`*^9}, {
+  3.6445134268801622`*^9, 3.6445138124611626`*^9}, {3.645714374191634*^9, 
+  3.645714442339634*^9}, {3.6458092648700733`*^9, 3.6458093729488735`*^9}, {
+  3.6458099603664737`*^9, 3.6458100658768735`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"ClearAll", "[", 
+  RowBox[{
+  "sol", ",", "normsigma", ",", "ef", ",", "j", ",", " ", "normj", ",", " ", 
+   "x", ",", " ", "normx", ",", " ", "x1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.643020580404987*^9, 3.643020608967987*^9}, {
+   3.643020977415987*^9, 3.643020978863987*^9}, {3.643028723653905*^9, 
+   3.643028729596905*^9}, 3.6430292984899054`*^9, {3.6445807886718864`*^9, 
+   3.6445808005450735`*^9}, {3.651846030338152*^9, 3.6518460946797523`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Motion of Charges in an Electric Field", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+  3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+  3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+  3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+  3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+  3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+  3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+  3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+  3.6458118696586733`*^9}}],
+
+Cell[TextData[{
+ "In our last lecture, we discussed how small changes in charge can lead to \
+changes in electrostatic potential (voltage) in our electrostatic systems.  \
+Of course, these changes occur over some time frame, so this was our first \
+look at what happens when we start changing charge/fields/voltages in our \
+electrostatic systems.  \nLet\[CloseCurlyQuote]s start our discussion of the \
+interaction of charges and time-dependent field by first looking at how a \
+charge behaves in the presence of a uniform electric field.  We can start by \
+writing out Newton\[CloseCurlyQuote]s Force Law\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["F", "\[RightVector]"], "=", 
+    RowBox[{
+     RowBox[{"m", 
+      OverscriptBox["a", "\[RightVector]"]}], "=", 
+     RowBox[{
+      RowBox[{"q", 
+       OverscriptBox["E", "\[RightVector]"]}], "-", 
+      FractionBox[
+       RowBox[{"m", 
+        OverscriptBox["v", "\[RightVector]"]}], "\[Tau]"]}]}]}], 
+   TraditionalForm]]],
+ "\nThis expression, of course, relates the acceleration of a charge q as a \
+function of the forces exerted on the charge. You will recognize the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", 
+    OverscriptBox["a", "\[RightVector]"]}], TraditionalForm]]],
+ " term from Intro Physics and the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", 
+    OverscriptBox["E", "\[RightVector]"]}], TraditionalForm]]],
+ " as the force exerted on the charge from the electric field.  The last \
+term, ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{"m", 
+     OverscriptBox["v", "\[RightVector]"]}], "\[Tau]"], TraditionalForm]]],
+ ", can be thought of as a \[OpenCurlyDoubleQuote]damping\
+\[CloseCurlyDoubleQuote] term, kind of like air resistance for a falling \
+object.  In the case of electrons, we can think of this term as coming from \
+scattering of the electron (off of other electrons, defects in the material, \
+or from lattice vibrations).  The \[Tau] term is the average time an electron \
+travels before scattering.  Once the electron scatters, it\[CloseCurlyQuote]s \
+velocity renormalizes...namely, the elastic scattering process conserves \
+energy, but not momentum, so the electron can scatter in ANY direction. Thus, \
+the average velocity vector after scattering is 0.  So every \[Tau] seconds, \
+the electron loses ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", 
+    OverscriptBox["v", "\[RightVector]"]}], TraditionalForm]]],
+ " of momentum.  This change in momentum is an \[OpenCurlyDoubleQuote]impulse\
+\[CloseCurlyDoubleQuote], and the average \[OpenCurlyDoubleQuote]impulse\
+\[CloseCurlyDoubleQuote] over time is nothing more than the \
+\[OpenCurlyDoubleQuote]damping\[CloseCurlyDoubleQuote] Force exerted on the \
+electron.\nSo we now have a rather simple differential equation that we \
+should be able to solve for a variety of conditions.  Let\[CloseCurlyQuote]s \
+start by looking at the case where we have some initial velocity \
+\[OpenCurlyDoubleQuote]vo\[CloseCurlyDoubleQuote], and no electric field."
+}], "Text",
+ CellChangeTimes->{{3.64296228551575*^9, 3.642962299540152*^9}, {
+   3.6429623716703644`*^9, 3.6429623761608133`*^9}, {3.6430203247689867`*^9, 
+   3.6430203576859865`*^9}, {3.6430204358579865`*^9, 3.643020460879987*^9}, {
+   3.643023351865574*^9, 3.643023371230644*^9}, {3.6430234589987087`*^9, 
+   3.6430235009929647`*^9}, {3.643028309415905*^9, 3.6430283112079053`*^9}, {
+   3.6430283889549055`*^9, 3.6430285233629055`*^9}, {3.6445139587631626`*^9, 
+   3.6445140179111624`*^9}, {3.644573852935382*^9, 3.644573867481837*^9}, {
+   3.6445755027233443`*^9, 3.6445755908691583`*^9}, {3.644580565151537*^9, 
+   3.644580594320453*^9}, {3.6445810229213095`*^9, 3.6445810347754946`*^9}, 
+   3.644581110861102*^9, {3.6458100868938737`*^9, 3.6458101737810736`*^9}, {
+   3.6458104015512733`*^9, 3.6458106729408736`*^9}, {3.6458107031772738`*^9, 
+   3.6458107891726737`*^9}, {3.6458108385034733`*^9, 
+   3.6458109765156736`*^9}, {3.6458110259632735`*^9, 3.645811098801674*^9}, {
+   3.651775936045848*^9, 3.6517759362018476`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sol", "=", 
+  RowBox[{"DSolve", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"m", "*", 
+        RowBox[{
+         RowBox[{"v", "'"}], "[", "t", "]"}]}], "\[Equal]", 
+       RowBox[{
+        RowBox[{"-", "m"}], "*", 
+        RowBox[{
+         RowBox[{"v", "[", "t", "]"}], "/", "tau"}]}]}], ",", 
+      RowBox[{
+       RowBox[{"v", "[", "0", "]"}], "\[Equal]", "vo"}]}], "}"}], ",", 
+    RowBox[{"v", "[", "t", "]"}], ",", "t"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6445806225652776`*^9, 3.6445806989009104`*^9}, 
+   3.644580757766796*^9, {3.6458111058628736`*^9, 3.6458112170890737`*^9}, {
+   3.6458112568724737`*^9, 3.6458112601524734`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"v", "[", "t", "]"}], "\[Rule]", 
+    RowBox[{
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"-", 
+       FractionBox["t", "tau"]}]], " ", "vo"}]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.652531907988615*^9, 3.652532014421015*^9}]
+}, Open  ]],
+
+Cell["\<\
+Cool!  We see that the velocity of our charge decays exponentially from its \
+initial value of vo, with a characteristic decay time \[Tau].
+What about if we have a constant electric field?  In this case our charge \
+will accelerate, and as it gains speed, the damping term will increase.  \
+Eventually the force from the electric field will be entirely balanced by the \
+damping term.  This will make our acceleration 0, and is what we call \
+\[OpenCurlyDoubleQuote]steady state\[CloseCurlyDoubleQuote]: it is not an \
+equilibrium situation, but the average motion of the charge will not change \
+over time...\
+\>", "Text",
+ CellChangeTimes->{{3.645811275760874*^9, 3.6458113305552735`*^9}, {
+  3.645811525083274*^9, 3.6458116274832735`*^9}, {3.651775973822448*^9, 
+  3.651775974555648*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sol", "=", 
+  RowBox[{"DSolve", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"0", "\[Equal]", 
+      RowBox[{
+       RowBox[{"q", "*", "efield"}], "-", 
+       RowBox[{"m", "*", 
+        RowBox[{
+         RowBox[{"v", "[", "t", "]"}], "/", "tau"}]}]}]}], "}"}], ",", 
+    RowBox[{"v", "[", "t", "]"}], ",", "t"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6458113171040735`*^9, 3.6458113192568736`*^9}, {
+  3.645811635245474*^9, 3.6458116705070734`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"v", "[", "t", "]"}], "\[Rule]", 
+    FractionBox[
+     RowBox[{"efield", " ", "q", " ", "tau"}], "m"]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.652531911792615*^9, 3.652532015970615*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Aha!  We see that our velocity is now constant, and given by: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["v", "\[RightVector]"], "=", 
+    FractionBox[
+     RowBox[{"q", 
+      OverscriptBox["E", "\[RightVector]"], "\[Tau]"}], "m"]}], 
+   TraditionalForm]]],
+ "\nOur velocity is proportional to the electric field!  That constant of \
+proportionality is known as the \[OpenCurlyDoubleQuote]mobility\
+\[CloseCurlyDoubleQuote], ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", "=", 
+    FractionBox["q\[Tau]", "m"]}], TraditionalForm]]],
+ "\nIf we assume that instead of one charge, we have a density of charges: \
+\[OpenCurlyDoubleQuote]N\[CloseCurlyDoubleQuote], in units of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["m", 
+    RowBox[{"-", "3"}]], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", then we can write the expression for current density: ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["J", "\[RightVector]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "=Nq",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["v", "\[RightVector]"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "=Nq",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["q\[Tau]", "m"], 
+     OverscriptBox["E", "\[RightVector]"]}], "=", 
+    RowBox[{"\[Sigma]", 
+     OverscriptBox["E", "\[RightVector]"]}]}], TraditionalForm]]],
+ ".\nWe can see that this parameter, conductivity, which we introduced \
+earlier in the week, can actually be derived simply from Newton\
+\[CloseCurlyQuote]s Force Law!"
+}], "Text",
+ CellChangeTimes->{{3.6458116846082735`*^9, 3.645811956298074*^9}, {
+  3.6458121752628736`*^9, 3.645812270167474*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Motion of Free Charges in a Time-Varying Electric Field", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+   3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+   3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+   3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+   3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+   3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+   3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+   3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+   3.6458118696586733`*^9}, {3.6458122769312735`*^9, 3.645812278759474*^9}, {
+   3.6458726792229557`*^9, 3.6458726797387295`*^9}, 3.645880160284664*^9}],
+
+Cell[TextData[{
+ "Now let\[CloseCurlyQuote]s see what happens when we introduce a time \
+varying field ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     OverscriptBox["E", "\[RightVector]"], "(", "t", ")"}], "=", 
+    RowBox[{"Re", "[", 
+     RowBox[{
+      OverscriptBox["E", "~"], 
+      SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ".  Here we are using \[OpenCurlyDoubleQuote]phasor\[CloseCurlyDoubleQuote] \
+notation, which we will use a lot in the coming months. Using phasor \
+notation, we recognize ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["E", "~"], TraditionalForm]]],
+ " as the complex amplitude of our electric field, and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "j\[Omega]t"], TraditionalForm]]],
+ " as the harmonic time-dependence of the field.  Remember from Euler\
+\[CloseCurlyQuote]s equation, that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["e", "j\[Omega]t"], "=", 
+    RowBox[{"cos\[Omega]t", "+", 
+     StyleBox[
+      RowBox[{"j", "sin\[Omega]t"}]]}]}], TraditionalForm]]],
+ ".  We can also write our current density as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     OverscriptBox["J", "\[RightVector]"], "(", "t", ")"}], "=", 
+    RowBox[{"Re", "[", 
+     RowBox[{
+      OverscriptBox["J", "~"], 
+      SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}], TraditionalForm]]],
+ ".  One of the reasons we use phasor notation is that taking the time \
+derivative of a phasor is remarkably simple: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["\[PartialD]", 
+     RowBox[{"\[PartialD]", "t"}]], 
+    RowBox[{"Re", "[", 
+     OverscriptBox["v", "~"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "j\[Omega]t"], TraditionalForm]]],
+ "]=",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Re", "[", 
+    RowBox[{"j\[Omega]", 
+     OverscriptBox["v", "~"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "j\[Omega]t"], TraditionalForm]]],
+ "].\nIf we assume that the velocity of the charge has the same time \
+dependence as the driving electric field (why wouldn\[CloseCurlyQuote]t it?), \
+we can also write ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     OverscriptBox["v", "\[RightVector]"], "(", "t", ")"}], "=", 
+    RowBox[{"Re", "[", 
+     RowBox[{
+      OverscriptBox["v", "~"], 
+      SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}], TraditionalForm]]],
+ ".  We can now plug this all into Newton\[CloseCurlyQuote]s Force Law:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["F", "\[RightVector]"], "=", 
+    RowBox[{
+     RowBox[{"m", 
+      OverscriptBox["a", "\[RightVector]"]}], "=", 
+     RowBox[{
+      RowBox[{"q", 
+       OverscriptBox["E", "\[RightVector]"]}], "-", 
+      FractionBox[
+       RowBox[{"m", 
+        OverscriptBox["v", "\[RightVector]"]}], "\[Tau]"]}]}]}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"m", 
+     RowBox[{
+      FractionBox["\[PartialD]", 
+       RowBox[{"\[PartialD]", "t"}]], 
+      RowBox[{"Re", "[", 
+       RowBox[{
+        OverscriptBox["v", "~"], 
+        SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}]}], "=", 
+    RowBox[{
+     RowBox[{"mRe", "[", 
+      RowBox[{"j\[Omega]", 
+       OverscriptBox["v", "~"], 
+       SuperscriptBox["e", "j\[Omega]t"]}], "]"}], "=", 
+     RowBox[{
+      RowBox[{"qRe", "[", 
+       RowBox[{
+        OverscriptBox["E", "~"], 
+        SuperscriptBox["e", "j\[Omega]t"]}], "]"}], "-", 
+      RowBox[{
+       FractionBox["m", "\[Tau]"], 
+       RowBox[{"Re", "[", 
+        RowBox[{
+         OverscriptBox["v", "~"], 
+         SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}]}]}]}], 
+   TraditionalForm]]],
+ "\nWe can drop the \[OpenCurlyDoubleQuote]Re\[CloseCurlyDoubleQuote] here to \
+give us the complex velocity and electric field, and then divide by ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "j\[Omega]t"], TraditionalForm]]],
+ " on both sides to relate the complex phasors ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["v", "~"], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["E", "~"], TraditionalForm]]],
+ ".\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"mj\[Omega]", 
+     OverscriptBox["v", "~"]}], "=", 
+    RowBox[{
+     RowBox[{"q", 
+      OverscriptBox["E", "~"]}], "-", 
+     RowBox[{
+      FractionBox["m", "\[Tau]"], 
+      OverscriptBox["v", "~"]}]}]}], TraditionalForm]]],
+ "\nWe can now relate the velocity of the charge to the electric field\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["v", "~"], "=", 
+    RowBox[{
+     FractionBox["q", 
+      RowBox[{"m", "(", 
+       RowBox[{"j\[Omega]", "+", 
+        RowBox[{"1", "/", "\[Tau]"}]}], ")"}]], 
+     OverscriptBox["E", "~"]}]}], TraditionalForm]]],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["J", "~"], "=", 
+    RowBox[{"Nq", 
+     OverscriptBox["v", "~"]}]}], TraditionalForm]]],
+ "=",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    SuperscriptBox["Nq", "2"], 
+    RowBox[{"m", "(", 
+     RowBox[{"j\[Omega]", "+", 
+      RowBox[{"1", "/", "\[Tau]"}]}], ")"}]], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["E", "~"], TraditionalForm]]],
+ ", \[Sigma]=",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    SuperscriptBox["Nq", "2"], 
+    RowBox[{"m", "(", 
+     RowBox[{"j\[Omega]", "+", 
+      RowBox[{"1", "/", "\[Tau]"}]}], ")"}]], TraditionalForm]]],
+ "\nWe see that for time-dependent fields, we have a complex(!) conductivity! \
+ Here, \[Tau] is our scattering time, and \[Gamma]=1/\[Tau] we call a \
+scattering frequency.  Let\[CloseCurlyQuote]s plot our conductivity as a \
+function of frequency \[Omega], so that we can understand the effect of \
+scattering time and frequency on the response of our system of charges.  We \
+will \[OpenCurlyDoubleQuote]normalize\[CloseCurlyDoubleQuote] sigma so that \
+we don\[CloseCurlyQuote]t have to worry about charge and charge density.  In \
+otherwords, we will plot sigma/(N",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "/m)."
+}], "Text",
+ CellChangeTimes->{{3.64296228551575*^9, 3.642962299540152*^9}, {
+   3.6429623716703644`*^9, 3.6429623761608133`*^9}, {3.6430203247689867`*^9, 
+   3.6430203576859865`*^9}, {3.6430204358579865`*^9, 3.643020460879987*^9}, {
+   3.643023351865574*^9, 3.643023371230644*^9}, {3.6430234589987087`*^9, 
+   3.6430235009929647`*^9}, {3.643028309415905*^9, 3.6430283112079053`*^9}, {
+   3.6430283889549055`*^9, 3.6430285233629055`*^9}, {3.6445139587631626`*^9, 
+   3.6445140179111624`*^9}, {3.644573852935382*^9, 3.644573867481837*^9}, {
+   3.6445755027233443`*^9, 3.6445755908691583`*^9}, {3.644580565151537*^9, 
+   3.644580594320453*^9}, {3.6445810229213095`*^9, 3.6445810347754946`*^9}, 
+   3.644581110861102*^9, {3.6458100868938737`*^9, 3.6458101737810736`*^9}, {
+   3.6458104015512733`*^9, 3.6458106729408736`*^9}, {3.6458107031772738`*^9, 
+   3.6458107891726737`*^9}, {3.6458108385034733`*^9, 
+   3.6458109765156736`*^9}, {3.6458110259632735`*^9, 3.645811098801674*^9}, {
+   3.6458122925538735`*^9, 3.6458123000892735`*^9}, {3.6458123607094736`*^9, 
+   3.6458123638958735`*^9}, {3.6458125684316735`*^9, 
+   3.6458126983124733`*^9}, {3.6458131439038734`*^9, 
+   3.6458131605378733`*^9}, {3.645813203173074*^9, 3.6458132343864737`*^9}, {
+   3.6458132704678736`*^9, 3.6458134157500734`*^9}, {3.6458134943630733`*^9, 
+   3.645813561079674*^9}, {3.645813611222274*^9, 3.6458136220182734`*^9}, {
+   3.6458706816490693`*^9, 3.6458707268530693`*^9}, {3.645870759949469*^9, 
+   3.645870920982069*^9}, {3.6458716077976694`*^9, 3.6458716163544693`*^9}, {
+   3.6458716532892694`*^9, 3.6458717528088694`*^9}, {3.6458717871946692`*^9, 
+   3.6458720288814974`*^9}, {3.6458720858368626`*^9, 3.6458722048393717`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"normsigma", "[", "gamma_", "]"}], ":=", 
+  RowBox[{"1", "/", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"I", "*", "w"}], "+", "gamma"}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.6458720360095887`*^9, 3.6458720646710916`*^9}, {
+  3.645872207461028*^9, 3.645872234790311*^9}, {3.645872444469816*^9, 
+  3.6458724525065794`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Re", "[", 
+        RowBox[{"normsigma", "[", "gamma", "]"}], "]"}], ",", 
+       RowBox[{"Im", "[", 
+        RowBox[{"normsigma", "[", "gamma", "]"}], "]"}], ",", " ", 
+       RowBox[{"Abs", "[", 
+        RowBox[{"normsigma", "[", "gamma", "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"w", ",", "0", ",", "1000"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<Real\>\"", ",", "\"\<Imag.\>\"", ",", "\"\<Abs[\[Sigma]]\>\""}], 
+       "}"}]}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<frequency\>\"", ",", "\"\<\[Sigma]\>\""}], "}"}]}]}], 
+    "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"gamma", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       RowBox[{"w", "/", "100"}], ",", 
+       RowBox[{"w", "/", "10"}], ",", "w", ",", 
+       RowBox[{"10", "w"}]}], "}"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6458722443403463`*^9, 3.645872400991103*^9}, {
+  3.6458724584532647`*^9, 3.6458724642947664`*^9}, {3.6458727163000555`*^9, 
+  3.6458727223847437`*^9}, {3.6458727594472446`*^9, 3.6458727812205296`*^9}, {
+  3.6517761947222476`*^9, 3.6517762457034473`*^9}, {3.651846722757752*^9, 
+  3.6518467510465555`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`gamma$$ = $CellContext`w, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`gamma$$], {
+      0, Rational[1, 100] $CellContext`w, 
+       Rational[1, 10] $CellContext`w, $CellContext`w, 10 $CellContext`w}}}, 
+    Typeset`size$$ = {403., {87., 91.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`gamma$1650$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`gamma$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`gamma$$, $CellContext`gamma$1650$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         Re[
+          $CellContext`normsigma[$CellContext`gamma$$]], 
+         Im[
+          $CellContext`normsigma[$CellContext`gamma$$]], 
+         Abs[
+          $CellContext`normsigma[$CellContext`gamma$$]]}, {$CellContext`w, 0, 
+         1000}, PlotLegends -> {"Real", "Imag.", "Abs[\[Sigma]]"}, 
+        AxesLabel -> {"frequency", "\[Sigma]"}], 
+      "Specifications" :> {{$CellContext`gamma$$, {
+         0, Rational[1, 100] $CellContext`w, 
+          Rational[1, 10] $CellContext`w, $CellContext`w, 
+          10 $CellContext`w}}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{446., {130., 137.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.6525319193842154`*^9, 3.652531973808215*^9}, 
+   3.652532021494815*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "For gamma=0 (infinite scattering time, or essentially no scattering), we \
+see that the complex conductivity of our material is entirely imaginary, and \
+decreases in magnitude with increasing frequency.  If our gamma is larger \
+than omega, then we see that our conductivity is primarily real and positive. \
+ What does this mean in terms of the motion of the charge?  We can figure \
+this out!  Let\[CloseCurlyQuote]s assume that N",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "2"], TraditionalForm]]],
+ "/m=1, and that the amplitude of our incident electric field is real, ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["E", "~"], TraditionalForm]]],
+ "=1.  Now let\[CloseCurlyQuote]s plot current as a function of time for \
+different frequencies, for a fixed gamma=10."
+}], "Text",
+ CellChangeTimes->{{3.6458728279257364`*^9, 3.6458729935725174`*^9}, {
+   3.6458730617910433`*^9, 3.6458731530674744`*^9}, {3.645873231875964*^9, 
+   3.645873240091564*^9}, 3.645873673418064*^9, {3.645879066019464*^9, 
+   3.645879077946864*^9}, 3.651846398949552*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ef", "[", 
+   RowBox[{"t_", ",", "w_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{"Exp", "[", 
+    RowBox[{"I", "*", "w", "*", "t"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.645873610777464*^9, 3.6458736303900642`*^9}, {
+   3.645873676142664*^9, 3.6458737072124643`*^9}, 3.645873752124464*^9, {
+   3.645873839003664*^9, 3.6458738591340637`*^9}, {3.6458739268402643`*^9, 
+   3.645873927245864*^9}, {3.645873992081464*^9, 3.645873992892664*^9}, 
+   3.645874034274064*^9, {3.645879088332864*^9, 3.6458791169336643`*^9}, {
+   3.645879247926264*^9, 3.6458792560392637`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"j", "[", 
+   RowBox[{"t_", ",", "w_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"I", "*", "w"}], "+", "10"}], ")"}]}], ")"}], "*", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", "*", "w", "*", "t"}], "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6458731595589914`*^9, 3.645873207786374*^9}, {
+   3.645873327433364*^9, 3.645873330950364*^9}, {3.645873506279664*^9, 
+   3.645873597387664*^9}, {3.645873674728464*^9, 3.6458736769226637`*^9}, {
+   3.645873712617064*^9, 3.645873714145864*^9}, 3.6458737578858643`*^9, {
+   3.645873866125864*^9, 3.645873919922464*^9}, 3.645874040945264*^9, {
+   3.645879095962264*^9, 3.6458791198236637`*^9}, 3.645879169173264*^9, {
+   3.645879261226264*^9, 3.645879274163064*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"ef", "[", 
+        RowBox[{"t", ",", "w"}], "]"}], ",", 
+       RowBox[{"j", "[", 
+        RowBox[{"t", ",", "w"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"w", "\[Equal]", "0"}], ",", "1", ",", 
+         RowBox[{"10", "/", "w"}]}], "]"}]}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Electric Field\>\"", ",", "\"\<Current\>\""}], "}"}]}], 
+     ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<time\>\"", ",", "\"\<Ef or J\>\""}], "}"}]}]}], "]"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"w", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", ".1", ",", "1", ",", "10", ",", "100"}], "}"}]}], 
+    "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.645873649695064*^9, 3.645873671357864*^9}, {
+  3.645873720309264*^9, 3.6458737254008636`*^9}, {3.645873776407064*^9, 
+  3.645873813000464*^9}, {3.6458792817320642`*^9, 3.645879333904264*^9}, {
+  3.645879396078064*^9, 3.645879409843264*^9}, {3.6517763495434475`*^9, 
+  3.6517763768884478`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`w$$ = 100, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`w$$], {0, 0.1, 1, 10, 100}}}, Typeset`size$$ = {
+    436., {95., 99.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`w$1473$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`w$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`w$$, $CellContext`w$1473$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         $CellContext`ef[$CellContext`t, $CellContext`w$$], 
+         $CellContext`j[$CellContext`t, $CellContext`w$$]}, {$CellContext`t, 
+         0, 
+         If[$CellContext`w$$ == 0, 1, 10/$CellContext`w$$]}, 
+        PlotLegends -> {"Electric Field", "Current"}, 
+        AxesLabel -> {"time", "Ef or J"}], 
+      "Specifications" :> {{$CellContext`w$$, {0, 0.1, 1, 10, 100}}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{479., {134., 141.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.652532046217615*^9, 3.652532054259815*^9}}]
+}, Open  ]],
+
+Cell["\<\
+This plot shows the relationship between current and electric field (both \
+phase and amplitude).  But let\[CloseCurlyQuote]s focus on phase by \
+normalizing the current...\
+\>", "Text",
+ CellChangeTimes->{{3.645874130932664*^9, 3.645874179550064*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"normj", "[", 
+   RowBox[{"t_", ",", "w_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"I", "*", "w"}], "+", "10"}], ")"}]}], ")"}], "*", 
+    RowBox[{"(", 
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{"I", "*", "w"}], "+", "10"}], "]"}], ")"}], "*", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", "*", "w", "*", "t"}], "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6458742914174643`*^9, 3.645874361463064*^9}, {
+  3.645879436293664*^9, 3.645879452662064*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"ef", "[", 
+        RowBox[{"t", ",", "w"}], "]"}], ",", 
+       RowBox[{"normj", "[", 
+        RowBox[{"t", ",", "w"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"w", "\[Equal]", "0"}], ",", "1", ",", 
+         RowBox[{"10", "/", "w"}]}], "]"}]}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Electric Field\>\"", ",", "\"\<Normalized Current\>\""}], 
+       "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"w", ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", ".1", ",", "1", ",", "10", ",", "100"}], "}"}]}], 
+    "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.645874206862464*^9, 3.6458742317744637`*^9}, {
+  3.6458743660846643`*^9, 3.6458743717650642`*^9}, {3.6458794573510637`*^9, 
+  3.645879478517664*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`w$$ = 10, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`w$$], {0, 0.1, 1, 10, 100}}}, Typeset`size$$ = {
+    474., {94., 98.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`w$2330$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`w$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`w$$, $CellContext`w$2330$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         $CellContext`ef[$CellContext`t, $CellContext`w$$], 
+         $CellContext`normj[$CellContext`t, $CellContext`w$$]}, \
+{$CellContext`t, 0, 
+         If[$CellContext`w$$ == 0, 1, 10/$CellContext`w$$]}, 
+        PlotLegends -> {"Electric Field", "Normalized Current"}], 
+      "Specifications" :> {{$CellContext`w$$, {0, 0.1, 1, 10, 100}}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{517., {133., 140.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652532062709215*^9}]
+}, Open  ]],
+
+Cell["\<\
+Really quickly, let\[CloseCurlyQuote]s also plot the displacement of the \
+charges, which we know will be related to the integral of the velocity\
+\>", "Text",
+ CellChangeTimes->{{3.6458745519072638`*^9, 3.645874585958864*^9}, {
+  3.645879224919064*^9, 3.645879225574264*^9}, {3.6458913279572344`*^9, 
+  3.6458913336114345`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"x", "[", 
+   RowBox[{"t_", ",", "w_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"I", "*", "w"}], "+", "10"}], ")"}]}], ")"}], "*", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", "*", "w", "*", "t"}], "]"}], "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{"w", "*", "I"}], ")"}]}], ")"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6458746686874638`*^9, 3.645874726544464*^9}, {
+  3.645874812154664*^9, 3.6458748136386642`*^9}, {3.645879513940064*^9, 
+  3.645879525659664*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"normx", "[", 
+   RowBox[{"t_", ",", "w_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"I", "*", "w"}], "+", "10"}], ")"}]}], ")"}], "*", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", "*", "w", "*", "t"}], "]"}], "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "/", 
+      RowBox[{"(", 
+       RowBox[{"w", "*", "I"}], ")"}]}], ")"}], "*", 
+    RowBox[{"(", 
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"I", "*", "w"}], "+", "10"}], ")"}], "*", "I", "*", "w"}], 
+      "]"}], ")"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.645874733897064*^9, 3.6458747732524643`*^9}, {
+   3.645874816261464*^9, 3.645874817712264*^9}, {3.645879531962864*^9, 
+   3.645879554242464*^9}, 3.6458795951916637`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"ef", "[", 
+        RowBox[{"t", ",", "w"}], "]"}], ",", 
+       RowBox[{"normx", "[", 
+        RowBox[{"t", ",", "w"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", 
+       RowBox[{"10", "/", "w"}]}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Electric Field\>\"", ",", "\"\<Displacement\>\""}], 
+       "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"w", ",", 
+     RowBox[{"{", 
+      RowBox[{"0.01", ",", ".1", ",", "1", ",", "10", ",", "100"}], "}"}]}], 
+    "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.645874599014464*^9, 3.645874607582864*^9}, {
+  3.6458746503180637`*^9, 3.6458746568030643`*^9}, {3.645874783037664*^9, 
+  3.6458747907812643`*^9}, {3.645874834267264*^9, 3.645874836607264*^9}, {
+  3.645879559624464*^9, 3.6458795753552637`*^9}, {3.645879682512464*^9, 
+  3.645879688726264*^9}, {3.645879907010264*^9, 3.645879912055064*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`w$$ = 100, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`w$$], {0.01, 0.1, 1, 10, 100}}}, Typeset`size$$ = {
+    444., {94., 97.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`w$3011$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`w$$ = 0.01}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`w$$, $CellContext`w$3011$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         $CellContext`ef[$CellContext`t, $CellContext`w$$], 
+         $CellContext`normx[$CellContext`t, $CellContext`w$$]}, \
+{$CellContext`t, 0, 10/$CellContext`w$$}, 
+        PlotLegends -> {"Electric Field", "Displacement"}], 
+      "Specifications" :> {{$CellContext`w$$, {0.01, 0.1, 1, 10, 100}}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{487., {133., 140.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652532069905815*^9}]
+}, Open  ]],
+
+Cell["\<\
+What does this tell us?
+Well, when \[Omega]>>\[Gamma], namely when our electric field is changing \
+much faster than the charges can scatter, we see that our displacement is out \
+of phase with the electric field, and our velocity is actually 0 when the \
+field is greatest!  
+When \[Omega]<<\[Gamma], namely our electric field is changing much slower \
+than the charges can scatter, our velocity tracks with the field, as would be \
+expected from what we know about DC conductivity.  In this situation, you can \
+think of the electric field as changing slowly, such that the electrons can \
+reach their \[OpenCurlyQuote]terminal velocity\[CloseCurlyQuote], which will \
+scale with electric field.  Thus, the electron velocity will follow the field.\
+\>", "Text",
+ CellChangeTimes->{{3.645874415072464*^9, 3.645874420100664*^9}, {
+  3.645874483721664*^9, 3.645874537296664*^9}, {3.6458799822552643`*^9, 
+  3.645880038314864*^9}, {3.645880077743464*^9, 3.6458801047534637`*^9}, {
+  3.6458913479954343`*^9, 3.6458913495720344`*^9}, {3.6458914378174343`*^9, 
+  3.645891483818034*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Motion of Bound Charges in a Time-Varying Electric Field", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+  3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+  3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+  3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+  3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+  3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+  3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+  3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+  3.6458118696586733`*^9}, {3.6458122769312735`*^9, 3.645812278759474*^9}, {
+  3.6458726792229557`*^9, 3.6458726797387295`*^9}, {3.645880152915464*^9, 
+  3.6458801568486643`*^9}}],
+
+Cell[TextData[{
+ "Now let\[CloseCurlyQuote]s see what happens when we introduce a time \
+varying field ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     OverscriptBox["E", "\[RightVector]"], "(", "t", ")"}], "=", 
+    RowBox[{"Re", "[", 
+     RowBox[{
+      OverscriptBox["E", "~"], 
+      SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}], TraditionalForm]]],
+ " to a system of bound charges, which is what we have in a dielectric.  In \
+this case, \[Sigma]=0, but we have some susceptibility that leads to a \
+relative permittivity ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Epsilon]", "r"], "=", 
+    RowBox[{"1", "+", 
+     SubscriptBox["\[Chi]", "e"]}]}], TraditionalForm]]],
+ ".  In this case, let\[CloseCurlyQuote]s go back to basics, and assume our \
+bound charge is tied to the nucleus by a spring, with spring constant k.  We \
+know, from intro physics, that a spring mass system has a resonance frequency \
+",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Omega]", "o"], "=", 
+    SqrtBox[
+     RowBox[{"k", "/", "m"}]]}], TraditionalForm]]],
+ ", so k=",
+ Cell[BoxData[
+  FormBox[
+   SubsuperscriptBox["m\[Omega]", "o", "2"], TraditionalForm]]],
+ "  Keeping a damping term proportional to velocity, which we will describe \
+with a scattering time for the dielectric ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Tau]", "d"], TraditionalForm]]],
+ ", we can write Newton\[CloseCurlyQuote]s Law now as: \n",
+ Cell[BoxData[{
+  FormBox[
+   RowBox[{
+    OverscriptBox["F", "\[RightVector]"], "=", 
+    RowBox[{
+     RowBox[{"m", 
+      OverscriptBox["a", "\[RightVector]"]}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "e"}], 
+       OverscriptBox["E", "\[RightVector]"]}], "-", 
+      FractionBox[
+       RowBox[{"m", 
+        OverscriptBox["v", "\[RightVector]"]}], 
+       SubscriptBox["\[Tau]", "d"]], "-", 
+      RowBox[{
+       SubsuperscriptBox["m\[Omega]", "o", "2"], "x"}]}]}]}], 
+   TraditionalForm], "\[IndentingNewLine]", 
+  FormBox[
+   RowBox[{
+    RowBox[{"m", 
+     RowBox[{
+      OverscriptBox["x", "\[RightVector]"], "''"}]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "e"}], 
+      OverscriptBox["E", "\[RightVector]"]}], "-", 
+     FractionBox[
+      RowBox[{"m", 
+       RowBox[{
+        OverscriptBox["x", "\[RightVector]"], "'"}]}], 
+      SubscriptBox["\[Tau]", "d"]], "-", 
+     RowBox[{
+      SubsuperscriptBox["m\[Omega]", "o", "2"], "x"}]}]}], TraditionalForm]}]],
+ "\nFor a constant electric field, we can assume no acceleration and no \
+velocity (bound charge in constant field) and solve for x, our displacement:"
+}], "Text",
+ CellChangeTimes->{{3.64296228551575*^9, 3.642962299540152*^9}, {
+   3.6429623716703644`*^9, 3.6429623761608133`*^9}, {3.6430203247689867`*^9, 
+   3.6430203576859865`*^9}, {3.6430204358579865`*^9, 3.643020460879987*^9}, {
+   3.643023351865574*^9, 3.643023371230644*^9}, {3.6430234589987087`*^9, 
+   3.6430235009929647`*^9}, {3.643028309415905*^9, 3.6430283112079053`*^9}, {
+   3.6430283889549055`*^9, 3.6430285233629055`*^9}, {3.6445139587631626`*^9, 
+   3.6445140179111624`*^9}, {3.644573852935382*^9, 3.644573867481837*^9}, {
+   3.6445755027233443`*^9, 3.6445755908691583`*^9}, {3.644580565151537*^9, 
+   3.644580594320453*^9}, {3.6445810229213095`*^9, 3.6445810347754946`*^9}, 
+   3.644581110861102*^9, {3.6458100868938737`*^9, 3.6458101737810736`*^9}, {
+   3.6458104015512733`*^9, 3.6458106729408736`*^9}, {3.6458107031772738`*^9, 
+   3.6458107891726737`*^9}, {3.6458108385034733`*^9, 
+   3.6458109765156736`*^9}, {3.6458110259632735`*^9, 3.645811098801674*^9}, {
+   3.6458122925538735`*^9, 3.6458123000892735`*^9}, {3.6458123607094736`*^9, 
+   3.6458123638958735`*^9}, {3.6458125684316735`*^9, 
+   3.6458126983124733`*^9}, {3.6458131439038734`*^9, 
+   3.6458131605378733`*^9}, {3.645813203173074*^9, 3.6458132343864737`*^9}, {
+   3.6458132704678736`*^9, 3.6458134157500734`*^9}, {3.6458134943630733`*^9, 
+   3.645813561079674*^9}, {3.645813611222274*^9, 3.6458136220182734`*^9}, {
+   3.6458706816490693`*^9, 3.6458707268530693`*^9}, {3.645870759949469*^9, 
+   3.645870920982069*^9}, {3.6458716077976694`*^9, 3.6458716163544693`*^9}, {
+   3.6458716532892694`*^9, 3.6458717528088694`*^9}, {3.6458717871946692`*^9, 
+   3.6458720288814974`*^9}, {3.6458720858368626`*^9, 
+   3.6458722048393717`*^9}, {3.645880173822864*^9, 3.645880557053464*^9}, {
+   3.645881106288664*^9, 3.645881117343464*^9}, {3.645881185532464*^9, 
+   3.645881290903064*^9}, {3.645881451477064*^9, 3.645881455082664*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sol", "=", 
+  RowBox[{"DSolve", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "e"}], "*", "ef"}], "\[Equal]", 
+      RowBox[{"m", "*", 
+       RowBox[{"wo", "^", "2"}], "*", 
+       RowBox[{"x1", "[", "t", "]"}]}]}], "}"}], ",", 
+    RowBox[{"x1", "[", "t", "]"}], ",", "t"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.645880562737864*^9, 3.645880563689464*^9}, {
+   3.6458809323770638`*^9, 3.6458810823704643`*^9}, 3.645881151997264*^9, {
+   3.645881298331664*^9, 3.645881301874864*^9}, {3.645881459016664*^9, 
+   3.645881459141464*^9}, {3.6458915187350345`*^9, 3.645891520497834*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"x1", "[", "t", "]"}], "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"e", " ", "ef"}], 
+      RowBox[{"m", " ", 
+       SuperscriptBox["wo", "2"]}]]}]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.652532074993415*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "This is just the displacement of the electron from the nucleus under a \
+constant electric field, which is what we used to calculate permittivity of \
+dielectrics.  Using this, we can find the susceptibility of our dielectric \
+material using the microscopic properties related to scattering and \
+\[OpenCurlyDoubleQuote]spring constant\[CloseCurlyDoubleQuote]:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["p", "\[RightVector]"], " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "e"}], " ", 
+      OverscriptBox["r", "\[RightVector]"]}], "=", 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["e", "2"], 
+       SubsuperscriptBox["m\[Omega]", "o", "2"]], 
+      OverscriptBox["E", "\[RightVector]"]}]}]}], TraditionalForm]]],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["P", "\[RightVector]"], "="}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["N", "d"], 
+     OverscriptBox["p", "\[RightVector]"]}], " ", "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        SubscriptBox["N", "d"], 
+        SuperscriptBox["e", "2"]}], 
+       SubsuperscriptBox["m\[Omega]", "o", "2"]], 
+      OverscriptBox["E", "\[RightVector]"]}], "=", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "o"], 
+      SubscriptBox["\[Chi]", "e"], 
+      OverscriptBox["E", "\[RightVector]"]}]}]}], TraditionalForm]]],
+ ", so\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Chi]", "e"], "="}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     SubscriptBox["N", "d"], 
+     SuperscriptBox["e", "2"]}], 
+    RowBox[{
+     SubscriptBox["m\[Epsilon]", "o"], 
+     SubsuperscriptBox["\[Omega]", "o", "2"]}]], TraditionalForm]]],
+ ", which is our DC susceptibility!\nWhat about the AC susceptibility?  Well, \
+we can go back to our phasor notation to describe the time dependence of our \
+position, velocity, acceleration, and electric field.\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"m", 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["t", "2"]}]], 
+      RowBox[{"Re", "[", 
+       RowBox[{
+        OverscriptBox["x", "~"], 
+        SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}]}], "=", 
+    RowBox[{
+     RowBox[{"mRe", "[", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["\[Omega]", "2"]}], 
+       OverscriptBox["x", "~"], 
+       SuperscriptBox["e", "j\[Omega]t"]}], "]"}], "=", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"eRe", "[", 
+        RowBox[{
+         OverscriptBox["E", "~"], 
+         SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}], "-", 
+      RowBox[{
+       FractionBox["m", "\[Tau]"], 
+       RowBox[{"Re", "[", 
+        RowBox[{"j\[Omega]", 
+         OverscriptBox["x", "~"], 
+         SuperscriptBox["e", "j\[Omega]t"]}], "]"}]}], "-"}]}]}], 
+   TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubsuperscriptBox["m\[Omega]", "o", "2"], "x"}], TraditionalForm]]],
+ ", rearranging in the same way we did for the DC case gives:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "~"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       RowBox[{"-", "e"}], "/", "m"}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SubsuperscriptBox["\[Omega]", "o", "2"], "-", 
+         SuperscriptBox["\[Omega]", "2"]}], ")"}], "+", 
+       "j\[Omega]\[Gamma]"}]], 
+     OverscriptBox["E", "~"]}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Chi]", "e"], "=", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["N", "d"], 
+      RowBox[{
+       SuperscriptBox["e", "2"], "/", 
+       SubscriptBox["\[Epsilon]", "o"]}], "m"}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        SubsuperscriptBox["\[Omega]", "o", "2"], "-", 
+        SuperscriptBox["\[Omega]", "2"]}], ")"}], "+", 
+      "j\[Omega]\[Gamma]"}]]}], TraditionalForm]]],
+ "\nYou can see that as \[Omega]-->0 (DC), our susceptibility goes to the DC \
+solution we derived above.  What does our bound electron displacement look \
+like as a function of the frequency of the electric field?  That\
+\[CloseCurlyQuote]s easy to compute.  Let\[CloseCurlyQuote]s simplify things \
+and set e/m=1, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Omega]", "o"], "=", "10"}], TraditionalForm]]],
+ " and assume the amplitude of our incident electric field is real, ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["E", "~"], TraditionalForm]]],
+ "=1 :"
+}], "Text",
+ CellChangeTimes->{
+  3.645880569423064*^9, {3.645881322921664*^9, 3.6458814341702642`*^9}, {
+   3.6458814720284643`*^9, 3.645881550003264*^9}, {3.6458896594796343`*^9, 
+   3.6458897737732344`*^9}, {3.645889864619234*^9, 3.6458899494294343`*^9}, {
+   3.6458899868838344`*^9, 3.6458900184834347`*^9}, {3.6458900566020346`*^9, 
+   3.6458902964382343`*^9}, {3.6458903505212345`*^9, 
+   3.6458903505212345`*^9}, {3.6458904103424344`*^9, 3.645890554242834*^9}, {
+   3.6458905907212343`*^9, 3.6458905907212343`*^9}, {3.6458906511332345`*^9, 
+   3.6458907295276346`*^9}, {3.6458907797792344`*^9, 3.6458907892750344`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"x1", "[", 
+   RowBox[{"w_", ",", "gamma_"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{"-", "1"}], "/", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"10", "^", "2"}], "-", 
+       RowBox[{"w", "^", "2"}]}], ")"}], "+", 
+     RowBox[{"I", "*", "w", "*", "gamma"}]}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.645890740031434*^9, 3.6458908140018344`*^9}, 
+   3.6458911975640345`*^9, 3.6458915369638343`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Re", "[", 
+        RowBox[{"x1", "[", 
+         RowBox[{"w", ",", "gamma"}], "]"}], "]"}], ",", 
+       RowBox[{"Im", "[", 
+        RowBox[{"x1", "[", 
+         RowBox[{"w", ",", "gamma"}], "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"w", ",", "0", ",", "20"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Real{x}\>\"", ",", "\"\<Imag.{x}\>\""}], "}"}]}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<w\>\"", ",", "\"\<x1\>\""}], "}"}]}], ",", 
+     RowBox[{"PlotRange", "->", "Full"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"gamma", ",", 
+     RowBox[{"{", 
+      RowBox[{"0.01", ",", ".1", ",", "1", ",", "10", ",", "100"}], "}"}]}], 
+    "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.6458906152916346`*^9, 3.645890647491434*^9, {3.6458908536498346`*^9, 
+   3.6458909439618344`*^9}, {3.6458909796816344`*^9, 
+   3.6458910147124343`*^9}, {3.6458915415190344`*^9, 
+   3.6458915534474344`*^9}, {3.651847658639701*^9, 3.651847700016036*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`gamma$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`gamma$$], {0.01, 0.1, 1, 10, 100}}}, 
+    Typeset`size$$ = {410., {97., 101.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`gamma$3972$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`gamma$$ = 0.01}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`gamma$$, $CellContext`gamma$3972$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         Re[
+          $CellContext`x1[$CellContext`w, $CellContext`gamma$$]], 
+         Im[
+          $CellContext`x1[$CellContext`w, $CellContext`gamma$$]]}, \
+{$CellContext`w, 0, 20}, PlotLegends -> {"Real{x}", "Imag.{x}"}, 
+        AxesLabel -> {"w", "x1"}, PlotRange -> Full], 
+      "Specifications" :> {{$CellContext`gamma$$, {0.01, 0.1, 1, 10, 100}}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{453., {136., 143.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652532079941615*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "This, of course, is nothing more thanthe frequency response of a damped \
+harmonic oscillator.  In such a system, we can think of the real part of x as \
+the amplitude of the displacement from equilibrium, and the imaginary part of \
+x is actually related to energy loss, which we can see is resonant at ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Omega]", "o"], TraditionalForm]]],
+ ".  Intuitively, it makes sense that the displacement of the electron is \
+opposite in sign to the electric field, since the force on the electron from \
+the E field is F=-eE."
+}], "Text",
+ CellChangeTimes->{{3.6458910391920347`*^9, 3.6458911326416345`*^9}, {
+  3.6458912100168343`*^9, 3.6458912416278343`*^9}, {3.645891574838434*^9, 
+  3.6458915800714345`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Polarization Current", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+  3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+  3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+  3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+  3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+  3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+  3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+  3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+  3.6458118696586733`*^9}, {3.6458122769312735`*^9, 3.645812278759474*^9}, {
+  3.6458726792229557`*^9, 3.6458726797387295`*^9}, {3.645880152915464*^9, 
+  3.6458801568486643`*^9}, {3.645891612400834*^9, 3.6458916150684347`*^9}, {
+  3.6458916641306343`*^9, 3.6458916667826347`*^9}}],
+
+Cell[TextData[{
+ "The world is very different when we allow the electric field to change in \
+time. In particular, for dielectrics, we know that for an electrostatic field \
+no current can flow, since there are no free carriers to carry current.  \
+However, for time-varying electric fields, this is not the case.  For a time \
+varying field, we clearly see that we are \[OpenCurlyQuote]sloshing\
+\[CloseCurlyQuote] around our bound charges...they oscillate at the same \
+frequency as the incident electric field.  Using this, and the fact that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["J", "\[RightVector]"], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      SubscriptBox["eN", "d"]}], 
+     OverscriptBox["v", "\[RightVector]"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", use our above derivation for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "~"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       RowBox[{"-", "e"}], "/", "m"}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SubsuperscriptBox["\[Omega]", "o", "2"], "-", 
+         SuperscriptBox["\[Omega]", "2"]}], ")"}], "+", 
+       "j\[Omega]\[Gamma]"}]], 
+     OverscriptBox["E", "~"]}]}], TraditionalForm]]],
+ " to find ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "\[RightVector]"], "(", "t", ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " and determine the (AC) current from bound charge in our dielectric.  This \
+current is the Polarization Current associated with the motion of bound \
+charge, and will play an important role in our final \
+Maxwell\[CloseCurlyQuote]s Equations. Assume  N",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["e", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "/m=1, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Omega]", "o"], "=", "10"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["E", "~"], TraditionalForm]]],
+ "=1.  Design a \[OpenCurlyDoubleQuote]Manipulate\[CloseCurlyDoubleQuote] \
+plot showing E(t) and Jpol(t), where you can change the gamma, and the \
+frequency."
+}], "Text",
+ CellChangeTimes->{{3.64296228551575*^9, 3.642962299540152*^9}, {
+   3.6429623716703644`*^9, 3.6429623761608133`*^9}, {3.6430203247689867`*^9, 
+   3.6430203576859865`*^9}, {3.6430204358579865`*^9, 3.643020460879987*^9}, {
+   3.643023351865574*^9, 3.643023371230644*^9}, {3.6430234589987087`*^9, 
+   3.6430235009929647`*^9}, {3.643028309415905*^9, 3.6430283112079053`*^9}, {
+   3.6430283889549055`*^9, 3.6430285233629055`*^9}, {3.6445139587631626`*^9, 
+   3.6445140179111624`*^9}, {3.644573852935382*^9, 3.644573867481837*^9}, {
+   3.6445755027233443`*^9, 3.6445755908691583`*^9}, {3.644580565151537*^9, 
+   3.644580594320453*^9}, {3.6445810229213095`*^9, 3.6445810347754946`*^9}, 
+   3.644581110861102*^9, {3.6458100868938737`*^9, 3.6458101737810736`*^9}, {
+   3.6458104015512733`*^9, 3.6458106729408736`*^9}, {3.6458107031772738`*^9, 
+   3.6458107891726737`*^9}, {3.6458108385034733`*^9, 
+   3.6458109765156736`*^9}, {3.6458110259632735`*^9, 3.645811098801674*^9}, {
+   3.6458122925538735`*^9, 3.6458123000892735`*^9}, {3.6458123607094736`*^9, 
+   3.6458123638958735`*^9}, {3.6458125684316735`*^9, 
+   3.6458126983124733`*^9}, {3.6458131439038734`*^9, 
+   3.6458131605378733`*^9}, {3.645813203173074*^9, 3.6458132343864737`*^9}, {
+   3.6458132704678736`*^9, 3.6458134157500734`*^9}, {3.6458134943630733`*^9, 
+   3.645813561079674*^9}, {3.645813611222274*^9, 3.6458136220182734`*^9}, {
+   3.6458706816490693`*^9, 3.6458707268530693`*^9}, {3.645870759949469*^9, 
+   3.645870920982069*^9}, {3.6458716077976694`*^9, 3.6458716163544693`*^9}, {
+   3.6458716532892694`*^9, 3.6458717528088694`*^9}, {3.6458717871946692`*^9, 
+   3.6458720288814974`*^9}, {3.6458720858368626`*^9, 
+   3.6458722048393717`*^9}, {3.645880173822864*^9, 3.645880557053464*^9}, {
+   3.645881106288664*^9, 3.645881117343464*^9}, {3.645881185532464*^9, 
+   3.645881290903064*^9}, {3.645881451477064*^9, 3.645881455082664*^9}, {
+   3.6458916211780343`*^9, 3.6458919652418346`*^9}, {3.6458923753364344`*^9, 
+   3.6458924240152345`*^9}, {3.6458925906278343`*^9, 3.6458926607096343`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"jpol", "[", 
+   RowBox[{"t_", ",", "w_", ",", "gamma_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{
+    RowBox[{"-", "I"}], "*", 
+    RowBox[{"w", "/", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"10", "^", "2"}], "-", 
+         RowBox[{"w", "^", "2"}]}], ")"}], "+", 
+       RowBox[{"I", "*", "w", "*", "gamma"}]}], ")"}]}], "*", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"I", "*", "w", "*", "t"}], "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.6458901500702343`*^9, 3.6458901645706344`*^9}, {
+   3.6458919801050344`*^9, 3.6458920865278344`*^9}, 3.6458923064684343`*^9, {
+   3.6458926667352343`*^9, 3.645892720436034*^9}, 3.6517664263624573`*^9, {
+   3.6518478188772745`*^9, 3.651847832429988*^9}, 3.6525321021398153`*^9},
+ Background->RGBColor[1, 1, 0]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ef", "[", 
+   RowBox[{"t_", ",", "w_"}], "]"}], ":=", 
+  RowBox[{"Re", "[", 
+   RowBox[{"Exp", "[", 
+    RowBox[{"I", "*", "w", "*", "t"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.645892728197234*^9, 3.6458927464838343`*^9}},
+ Background->RGBColor[1, 1, 0]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"jpol", "[", 
+        RowBox[{"t", ",", "w", ",", "gamma"}], "]"}], ",", 
+       RowBox[{"ef", "[", 
+        RowBox[{"t", ",", "w"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "4"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<Polarization Current\>\"", ",", "\"\<Electric Field\>\""}], 
+       "}"}]}], ",", 
+     RowBox[{"PlotRange", "->", "Full"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<t\>\"", ",", "\"\<E or Jpol\>\""}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"gamma", ",", 
+     RowBox[{"{", 
+      RowBox[{"0.01", ",", ".1", ",", "1", ",", "10", ",", "100"}], "}"}]}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"w", ",", "0", ",", "20"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6458921117886343`*^9, 3.645892130800434*^9}, {
+  3.645892185314434*^9, 3.6458922060130343`*^9}, {3.645892255289234*^9, 
+  3.6458922693296347`*^9}, {3.6458927604322343`*^9, 3.6458928028122344`*^9}, {
+  3.645892835301834*^9, 3.6458928605772343`*^9}, {3.6458931222816343`*^9, 
+  3.645893134964834*^9}, {3.6518478499284754`*^9, 3.6518478817304716`*^9}},
+ Background->RGBColor[1, 1, 0]],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`gamma$$ = 10, $CellContext`w$$ = 
+    11.450000000000001`, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`gamma$$], {0.01, 0.1, 1, 10, 100}}, {
+      Hold[$CellContext`w$$], 0, 20}}, Typeset`size$$ = {475., {100., 103.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`gamma$5167$$ = 0, $CellContext`w$5168$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`gamma$$ = 0.01, $CellContext`w$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`gamma$$, $CellContext`gamma$5167$$, 0], 
+        Hold[$CellContext`w$$, $CellContext`w$5168$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         $CellContext`jpol[$CellContext`t, $CellContext`w$$, \
+$CellContext`gamma$$], 
+         $CellContext`ef[$CellContext`t, $CellContext`w$$]}, {$CellContext`t, 
+         0, 4}, PlotLegends -> {"Polarization Current", "Electric Field"}, 
+        PlotRange -> Full, AxesLabel -> {"t", "E or Jpol"}], 
+      "Specifications" :> {{$CellContext`gamma$$, {
+         0.01, 0.1, 1, 10, 100}}, {$CellContext`w$$, 0, 20}}, "Options" :> {},
+       "DefaultOptions" :> {}],
+     ImageSizeCache->{518., {152., 159.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652532108927415*^9},
+ Background->RGBColor[1, 1, 0]]
+}, Open  ]],
+
+Cell[TextData[{
+ "Use this plot to describe below (briefly) the phase and amplitude of the \
+polarization current for the following cases:\n1) \[Omega]=",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Omega]", "o"], TraditionalForm]]],
+ ", little to no scattering (weakly damped): Polarization current large, Pi/2 \
+out of phase with E field\n2) \[Omega]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{">>", 
+    SubscriptBox["\[Omega]", "o"]}], TraditionalForm]]],
+ ", weakly to moderately damped \[Gamma]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[LessEqual]", 
+    SubscriptBox["\[Omega]", "o"]}], TraditionalForm]]],
+ ": Polarization current small, Pi out of phase with E field"
+}], "Text",
+ CellChangeTimes->{{3.645892943827834*^9, 3.6458929995440345`*^9}, {
+   3.6458930665516343`*^9, 3.6458930897396345`*^9}, {3.6458932059172344`*^9, 
+   3.6458932525298347`*^9}, {3.6525321539118147`*^9, 
+   3.6525321836604147`*^9}, {3.652532287070215*^9, 3.6525322908100147`*^9}, 
+   3.652532362324615*^9}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6458744054900637`*^9, 3.645874409080064*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1680, 1012},
+WindowMargins->{{1676, Automatic}, {Automatic, -4}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"10.2 for Microsoft Windows (64-bit) (July 6, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 336, 4, 91, "Title"],
+Cell[919, 28, 1698, 37, 66, "Text"],
+Cell[CellGroupData[{
+Cell[2642, 69, 104, 1, 61, "Section"],
+Cell[2749, 72, 1885, 26, 103, "Text"],
+Cell[4637, 100, 483, 8, 29, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5157, 113, 683, 9, 61, "Section"],
+Cell[5843, 124, 4051, 77, 195, "Text"],
+Cell[CellGroupData[{
+Cell[9919, 205, 706, 19, 29, "Input"],
+Cell[10628, 226, 314, 9, 40, "Output"]
+}, Open  ]],
+Cell[10957, 238, 801, 13, 66, "Text"],
+Cell[CellGroupData[{
+Cell[11783, 255, 481, 13, 29, "Input"],
+Cell[12267, 270, 263, 7, 42, "Output"]
+}, Open  ]],
+Cell[12545, 280, 1686, 48, 112, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14268, 333, 832, 10, 61, "Section"],
+Cell[15103, 345, 7924, 220, 290, "Text"],
+Cell[23030, 567, 363, 9, 29, "Input"],
+Cell[CellGroupData[{
+Cell[23418, 580, 1382, 35, 29, "Input"],
+Cell[24803, 617, 2216, 46, 282, "Output"]
+}, Open  ]],
+Cell[27034, 666, 1077, 20, 68, "Text"],
+Cell[28114, 688, 618, 12, 29, "Input"],
+Cell[28735, 702, 847, 19, 29, "Input"],
+Cell[CellGroupData[{
+Cell[29607, 725, 1264, 34, 29, "Input"],
+Cell[30874, 761, 1898, 38, 290, "Output"]
+}, Open  ]],
+Cell[32787, 802, 262, 5, 28, "Text"],
+Cell[33052, 809, 606, 18, 29, "Input"],
+Cell[CellGroupData[{
+Cell[33683, 831, 1003, 28, 29, "Input"],
+Cell[34689, 861, 1837, 37, 288, "Output"]
+}, Open  ]],
+Cell[36541, 901, 339, 6, 28, "Text"],
+Cell[36883, 909, 645, 19, 29, "Input"],
+Cell[37531, 930, 873, 26, 29, "Input"],
+Cell[CellGroupData[{
+Cell[38429, 960, 1078, 27, 29, "Input"],
+Cell[39510, 989, 1801, 36, 288, "Output"]
+}, Open  ]],
+Cell[41326, 1028, 1091, 17, 85, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42454, 1050, 853, 11, 61, "Section"],
+Cell[43310, 1063, 4511, 103, 157, "Text"],
+Cell[CellGroupData[{
+Cell[47846, 1170, 648, 15, 29, "Input"],
+Cell[48497, 1187, 305, 10, 45, "Output"]
+}, Open  ]],
+Cell[48817, 1200, 5208, 152, 273, "Text"],
+Cell[54028, 1354, 470, 14, 29, "Input"],
+Cell[CellGroupData[{
+Cell[54523, 1372, 1197, 31, 29, "Input"],
+Cell[55723, 1405, 1885, 39, 294, "Output"]
+}, Open  ]],
+Cell[57623, 1447, 768, 14, 47, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[58428, 1466, 918, 12, 61, "Section"],
+Cell[59349, 1480, 4235, 88, 102, "Text"],
+Cell[63587, 1570, 843, 21, 43, "Input"],
+Cell[64433, 1593, 300, 8, 43, "Input"],
+Cell[CellGroupData[{
+Cell[64758, 1605, 1371, 34, 64, "Input"],
+Cell[66132, 1641, 2167, 42, 340, "Output"]
+}, Open  ]],
+Cell[68314, 1686, 988, 23, 66, "Text"],
+Cell[69305, 1711, 94, 1, 29, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

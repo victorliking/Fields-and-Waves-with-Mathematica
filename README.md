@@ -1,1 +1,1 @@
-# Mathematica is useful!
+# Mathematica is useful! Prof Wasserman is great professor.
