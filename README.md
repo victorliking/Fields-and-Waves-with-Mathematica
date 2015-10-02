@@ -1,1 +1,2 @@
-# Mathematica is useful! Prof Wasserman is great professor.
+# Mathematica lab.
+All detail description can be found on the Prof.Wasserman website.
