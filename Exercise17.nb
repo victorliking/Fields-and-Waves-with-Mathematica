@@ -1,0 +1,1968 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     75129,       1959]
+NotebookOptionsPosition[     71553,       1837]
+NotebookOutlinePosition[     71926,       1853]
+CellTagsIndexPosition[     71883,       1850]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Computer Lab 5: Lecture 17", "Title",
+ CellChangeTimes->{{3.6410559385127525`*^9, 3.6410559414485335`*^9}, 
+   3.6411222452306767`*^9, {3.641826883218768*^9, 3.641826891336664*^9}, {
+   3.642959639885213*^9, 3.64295964365359*^9}, {3.6445134003671627`*^9, 
+   3.6445134026711626`*^9}, {3.645714342562634*^9, 3.645714345601634*^9}, {
+   3.6462321237080064`*^9, 3.646232126318224*^9}, 3.6466654741212645`*^9}],
+
+Cell[TextData[{
+ "In our computer lab lectures we will work together through concepts and \
+challanges we have discussed over the week in class.  As with your \
+after-class Exercises, you will be expected to turn in your computer lab \
+notebooks before the nect lecture. Please do so by e-mailing your completed \
+*nb file to Lan Yu (",
+ ButtonBox["ece329.uiuc@gmail.com",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["mailto:lanyu2@illinois.edu"], None},
+  ButtonNote->"mailto:lanyu2@illinois.edu"],
+ "), make sure you name the file using the following notation: \
+\[OpenCurlyDoubleQuote]Ex",
+ StyleBox["n_Last_First",
+  FontSlant->"Italic"],
+ ".nb\[CloseCurlyDoubleQuote], where ",
+ StyleBox["n ",
+  FontSlant->"Italic"],
+ "is the Lecture number (in this case, 17), and ",
+ StyleBox["First ",
+  FontSlant->"Italic"],
+ "and ",
+ StyleBox["Last ",
+  FontSlant->"Italic"],
+ "would be your first and last name.  So my submission to Lan for this \
+computer lab would be titled \[OpenCurlyDoubleQuote]Ex17_Wasserman_Dan.nb\
+\[CloseCurlyDoubleQuote].  You will receive full credit for your copmputer \
+lab if it turned in before the next lecture (",
+ StyleBox["Lecture n+1",
+  FontSlant->"Italic"],
+ ").  No late submissions will be accepted."
+}], "Text",
+ CellChangeTimes->{{3.641056402865523*^9, 3.6410564501924195`*^9}, {
+  3.6411222567454033`*^9, 3.6411222607263775`*^9}, {3.6418268958480062`*^9, 
+  3.641826960201115*^9}, {3.641827004708915*^9, 3.641827119992915*^9}, {
+  3.6429596523914633`*^9, 3.6429596560308275`*^9}, {3.644513408856162*^9, 
+  3.644513413887162*^9}, {3.6457143560906343`*^9, 3.645714359121634*^9}, {
+  3.646232131359056*^9, 3.6462321333090687`*^9}, {3.6466654777322645`*^9, 
+  3.6466654802022643`*^9}, {3.652552405837899*^9, 3.6525524217160993`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Objective/Overview:", "Section",
+ CellChangeTimes->{{3.641055962234193*^9, 3.641055967807358*^9}}],
+
+Cell["\<\
+We covered a lot in class and in our exercises this week!  We will use this \
+week\[CloseCurlyQuote]s Class Exercise to try to \[OpenCurlyDoubleQuote]put \
+it all together\[CloseCurlyDoubleQuote].  In particular, we now have our \
+final version for Maxwell\[CloseCurlyQuote]s Equations.  This means we can \
+start to understand the relationship between magnetic and electric fields.\
+\>", "Text",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQB2IQzcN3IeawwmvHVXdupYJo5g0TckD0Ccsv/SA67uXu
++SCax9txAYjumxLUfgRIp9bWd4Foja9dex8D6fpk8QMg+tTPB4+fAOnTlsYv
+QfT8Sgvfj0BaRnpSIIguq614bq302vHcthXvQXRJya1/ILqBPYHRBsQPWtPE
+o/zaUcF3J5jWu5gin6ry2vHzFc5UEP3ohrtAGpAOu2kpA6IvvCtQANGCp1K1
+QbSXVsykaPXXjjcO9h0C0fcUj/1Yqvna0eOeF+MyIL3kurTfFSCtEzsvGkSr
+7+JeCqIj+W02gegErpknF2m9djxQwnUJRDveOH8VRMfde/4aRM8Q6Xxbpv3a
+0aZ13mcQ3TZRhLkcSE/Ztw1M13jfPwWiD92fegNEz+tc9G6DGTD8/F9+AtEA
+sVC4EQ==
+  "]],
+
+Cell[BoxData[
+ RowBox[{"ClearAll", "[", "muo", "]"}]], "Input",
+ CellChangeTimes->{{3.643020580404987*^9, 3.643020608967987*^9}, {
+   3.643020977415987*^9, 3.643020978863987*^9}, {3.643028723653905*^9, 
+   3.643028729596905*^9}, 3.6430292984899054`*^9, {3.6445807886718864`*^9, 
+   3.6445808005450735`*^9}, {3.646670847099864*^9, 3.646670847755064*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Time Varying Electric Field", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+  3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+  3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+  3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+  3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+  3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+  3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+  3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+  3.6458118696586733`*^9}, {3.6462324190221186`*^9, 3.6462324283101788`*^9}, {
+  3.6462325317397165`*^9, 3.6462325341627326`*^9}, {3.6466684938291645`*^9, 
+  3.646668500170764*^9}, {3.652552613322299*^9, 3.652552617459299*^9}}],
+
+Cell[TextData[{
+ "Our electric and magnetic fields are linked by Maxwell\[CloseCurlyQuote]s \
+equations.  More specifically, the time derivatives and spatial derivatives \
+(curls) of our fields are linked.  So let\[CloseCurlyQuote]s try to \
+understand what this looks like.\nFirst, imagine we have an electric field \
+that is oscillating in time: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["E", "\[RightVector]"], "=", 
+    RowBox[{"4", 
+     RowBox[{"cos", "[", "\[Omega]t", "]"}], 
+     OverscriptBox["y", "^"]}]}], TraditionalForm]]],
+ ", and let\[CloseCurlyQuote]s choose \[Omega]=2\[Pi].\nFrom this, we can use \
+Maxwell\[CloseCurlyQuote]s equations to find the magnetic field, \
+specifically, we can use Ampere\[CloseCurlyQuote]s and Faraday\
+\[CloseCurlyQuote]s Law.\n \[Del]\[Cross]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["E", "\[RightVector]"], "=", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["B", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}]}], TraditionalForm]]],
+ " and \[Del]\[Cross]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "=", 
+    RowBox[{
+     OverscriptBox["J", "\[RightVector]"], "+", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["D", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}]}], TraditionalForm]]],
+ ".  Let\[CloseCurlyQuote]s only worry about the xy plane"
+}], "Text",
+ CellChangeTimes->{{3.64296228551575*^9, 3.642962299540152*^9}, {
+   3.6429623716703644`*^9, 3.6429623761608133`*^9}, {3.6430203247689867`*^9, 
+   3.6430203576859865`*^9}, {3.6430204358579865`*^9, 3.643020460879987*^9}, {
+   3.643023351865574*^9, 3.643023371230644*^9}, {3.6430234589987087`*^9, 
+   3.6430235009929647`*^9}, {3.643028309415905*^9, 3.6430283112079053`*^9}, {
+   3.6430283889549055`*^9, 3.6430285233629055`*^9}, {3.6445139587631626`*^9, 
+   3.6445140179111624`*^9}, {3.644573852935382*^9, 3.644573867481837*^9}, {
+   3.6445755027233443`*^9, 3.6445755908691583`*^9}, {3.644580565151537*^9, 
+   3.644580594320453*^9}, {3.6445810229213095`*^9, 3.6445810347754946`*^9}, 
+   3.644581110861102*^9, {3.6458100868938737`*^9, 3.6458101737810736`*^9}, {
+   3.6458104015512733`*^9, 3.6458106729408736`*^9}, {3.6458107031772738`*^9, 
+   3.6458107891726737`*^9}, {3.6458108385034733`*^9, 
+   3.6458109765156736`*^9}, {3.6458110259632735`*^9, 3.645811098801674*^9}, {
+   3.646232522103052*^9, 3.646232527443287*^9}, {3.646232653905114*^9, 
+   3.646232663810792*^9}, {3.6462327658954763`*^9, 3.646232773416151*^9}, {
+   3.646234072385296*^9, 3.6462341059784365`*^9}, {3.6462341464464645`*^9, 
+   3.646234202748218*^9}, {3.646669763503464*^9, 3.646669898367864*^9}, {
+   3.646669973533864*^9, 3.646670187984864*^9}, {3.6466702241148643`*^9, 
+   3.646670256151064*^9}, {3.646670326486264*^9, 3.6466703341976643`*^9}, {
+   3.646670400040864*^9, 3.646670433843464*^9}, {3.6466705026100645`*^9, 
+   3.646670553596264*^9}, {3.6467613841187906`*^9, 3.64676146058619*^9}, {
+   3.6468261573858466`*^9, 3.6468261584934464`*^9}, {3.6525526247474995`*^9, 
+   3.652552706588499*^9}, {3.6525527413698993`*^9, 3.652552977066699*^9}, {
+   3.652553040110699*^9, 3.652553040126299*^9}, {3.652613763834421*^9, 
+   3.652613857351221*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"e1", "=", 
+  RowBox[{"{", 
+   RowBox[{"0", ",", 
+    RowBox[{"4", "*", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"2", "*", "Pi", "*", "t"}], "]"}]}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.6525529114130993`*^9, 3.6525529848162994`*^9}, {
+  3.652553043715299*^9, 3.652553044890299*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", 
+   RowBox[{"4", " ", 
+    RowBox[{"Cos", "[", 
+     RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.652552987405899*^9, 3.652553045641099*^9, {3.6526116416730213`*^9, 
+   3.6526116671698213`*^9}, 3.6528745714193*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"VectorPlot", "[", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "1"}], "<", "x", "<", "1"}], ",", 
+       RowBox[{"e1", "/.", 
+        RowBox[{"{", 
+         RowBox[{"t", "\[Rule]", " ", "to"}], "}"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "4"}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"VectorScale", "\[Rule]", "Small"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"to", ",", "0", ",", "3"}], "}"}], ",", " ", 
+   RowBox[{"AnimationRate", "\[Rule]", ".1"}], ",", 
+   RowBox[{"AnimationRepetitions", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652552993947299*^9, 3.652553099569499*^9}, {
+   3.652553136712699*^9, 3.6525531710826993`*^9}, {3.652553204797699*^9, 
+   3.652553214567499*^9}, 3.6525532990466995`*^9, {3.6526112218738213`*^9, 
+   3.652611336636021*^9}, {3.652611381344821*^9, 3.6526114952390213`*^9}, {
+   3.652611696986421*^9, 3.6526117258556213`*^9}, {3.652611885914421*^9, 
+   3.652611912005821*^9}, {3.6526121322102213`*^9, 3.6526121967474213`*^9}, {
+   3.652612236762621*^9, 3.652612262035621*^9}, {3.652612295725621*^9, 
+   3.6526123025364213`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`to$$ = 0.7215199947357178, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`to$$], 0, 3}}, Typeset`size$$ = {324., {157., 161.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`to$1445777$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`to$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`to$$, $CellContext`to$1445777$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> VectorPlot[
+        If[-1 < $CellContext`x < 1, 
+         ReplaceAll[$CellContext`e1, {$CellContext`t -> $CellContext`to$$}], {
+         0, 4}], {$CellContext`x, -1, 1}, {$CellContext`y, -1, 1}, 
+        VectorScale -> Small], 
+      "Specifications" :> {{$CellContext`to$$, 0, 3, AnimationRate -> 0.1, 
+         AnimationRepetitions -> 1, 
+         AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{367., {189., 196.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.652611913799821*^9, {3.6526121656886215`*^9, 3.652612197823821*^9}, {
+   3.652612237918021*^9, 3.6526122628964214`*^9}, 3.6526123029430213`*^9, 
+   3.6528745754157*^9}]
+}, Open  ]],
+
+Cell["\<\
+I played a little trick here, setting the vector field equal to {0,4} at the \
+edge of the plot range.  Otherwise each iteration of the animation scales \
+with the vector size, so you never actually see the vector changing \
+amplitude.  You can see below what this looks like:\
+\>", "Text",
+ CellChangeTimes->{{3.6526123228254213`*^9, 3.6526123901682215`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"VectorPlot", "[", 
+    RowBox[{
+     RowBox[{"e1", "/.", 
+      RowBox[{"{", 
+       RowBox[{"t", "\[Rule]", " ", "to"}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"VectorScale", "\[Rule]", "Small"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"to", ",", "0", ",", "3"}], "}"}], ",", " ", 
+   RowBox[{"AnimationRate", "\[Rule]", ".1"}], ",", 
+   RowBox[{"AnimationRepetitions", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652612400197421*^9, 3.652612404180421*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`to$$ = 0.3791799545288086, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`to$$], 0, 3}}, Typeset`size$$ = {324., {157., 161.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`to$1450610$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`to$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`to$$, $CellContext`to$1450610$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> VectorPlot[
+        ReplaceAll[$CellContext`e1, {$CellContext`t -> $CellContext`to$$}], \
+{$CellContext`x, -1, 1}, {$CellContext`y, -1, 1}, VectorScale -> Small], 
+      "Specifications" :> {{$CellContext`to$$, 0, 3, AnimationRate -> 0.1, 
+         AnimationRepetitions -> 1, 
+         AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{367., {189., 196.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652612406143221*^9, 3.6528745952865*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Let\[CloseCurlyQuote]s see if we can determine the magnetic field from such \
+a time-varying electric field using \[Del]\[Cross]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["E", "\[RightVector]"], "=", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["B", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}]}], TraditionalForm]]],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.652612540959421*^9, 3.652612575058221*^9}, {
+  3.6528746241805*^9, 3.6528746257093*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"curle1", "=", 
+  RowBox[{"Curl", "[", 
+   RowBox[{"e1", ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.652613864544221*^9, 3.652613878716221*^9}}],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{3.652613879622021*^9, 3.6528746125929*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "which means that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", 
+      OverscriptBox["B", "\[RightVector]"]}], 
+     RowBox[{"\[PartialD]", "t"}]], "=", "0"}], TraditionalForm]]],
+ ", so ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["B", "\[RightVector]"], "=", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["B", "x"], ",", 
+       SubscriptBox["B", "y"], ",", 
+       SubscriptBox["B", "z"]}], "}"}], "=", "constant"}]}], 
+   TraditionalForm]]],
+ " in time.  But what about \[Del]\[Cross]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "=", 
+    RowBox[{
+     OverscriptBox["J", "\[RightVector]"], "+", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["D", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.652613889568221*^9, 3.652613948129021*^9}, {
+  3.652614136007821*^9, 3.6526141368346214`*^9}, {3.6528746430801*^9, 
+  3.6528746604020996`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"curlh1", "=", 
+  RowBox[{"-", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"epso", "*", "e1"}], ",", "t"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.652613960678421*^9, 3.652613985566221*^9}, {
+  3.6526150541815214`*^9, 3.652615056786721*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", 
+   RowBox[{"8", " ", "epso", " ", "\[Pi]", " ", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6526139864086213`*^9, 3.652615062359521*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "which means that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Del]", "\[Cross]", 
+     OverscriptBox["H", "\[RightVector]"]}], "=", 
+    RowBox[{
+     RowBox[{"8", " ", 
+      SubscriptBox["\[Pi]\[Epsilon]", "o"], " ", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"2", " ", "\[Pi]", " ", "t"}], "]"}], 
+      OverscriptBox["y", "^"]}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["H", "x"]}], 
+         RowBox[{"\[PartialD]", "z"}]], "-", 
+        FractionBox[
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["H", "z"]}], 
+         RowBox[{"\[PartialD]", "x"}]]}], ")"}], 
+      OverscriptBox["y", "^"]}]}]}], TraditionalForm]]],
+ "\nWhich means that we have a problem!!!  Why?  Because the curl of E \
+suggests that B is constant in time, but the time derivative of D says that \
+it is not.\nSo what is the problem???"
+}], "Text",
+ CellChangeTimes->{{3.652613999019421*^9, 3.6526141198598213`*^9}, {
+  3.652614158669021*^9, 3.6526141620406213`*^9}, {3.652614240700621*^9, 
+  3.6526142569118214`*^9}, {3.6526149975701213`*^9, 3.652615037772921*^9}, {
+  3.6526150704321213`*^9, 3.652615085265921*^9}, {3.652617399273921*^9, 
+  3.652617399273921*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Moving from Statics to Time Variation", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+   3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+   3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+   3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+   3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+   3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+   3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+   3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+   3.6458118696586733`*^9}, {3.6462324190221186`*^9, 
+   3.6462324283101788`*^9}, {3.6462325317397165`*^9, 
+   3.6462325341627326`*^9}, {3.6466684938291645`*^9, 3.646668500170764*^9}, {
+   3.646826179340047*^9, 3.6468261879606466`*^9}, {3.652615102428921*^9, 
+   3.6526151099823213`*^9}, 3.652615315433921*^9}],
+
+Cell["\<\
+Basically the system we set up in the previous section was our good old \
+parallel plate capacitor, which we know gives us a uniform electric field \
+across the plates, assuming an infinite system of plates.  To change the \
+electric field, we simply need to add charge to the plates.
+In our problem above, we assumed that the field changed uniformly with time.
+This means that we somehow were able to add the same amount of charge density \
+to the center of the plates, and to the infinite extent of the plates (the \
+very edges, way out in infinity).  This implies that we are transporting \
+mass/information/energy an infinite distance in an infinitesimal amount of \
+time, violating all sorts of laws of physics. \
+\>", "Text",
+ CellChangeTimes->{
+  3.6468261542814465`*^9, {3.646826206449647*^9, 3.6468262308092465`*^9}, {
+   3.652615114586321*^9, 3.6526153312799215`*^9}}],
+
+Cell[TextData[{
+ "How can we fix this?\n-Well, first, we could assume that the field changes \
+very slowly.  This means that for any given time, we can treat our field as \
+static (not time varying) and then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", 
+      OverscriptBox["D", "\[RightVector]"]}], 
+     RowBox[{"\[PartialD]", "t"}]], "\[Rule]", " ", "0"}], TraditionalForm]]],
+ ", satisfied with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "\[Rule]", " ", "0."}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nOr, we could recognize that getting charge out to the edge of the plates \
+means that we have to transport a current out to the edge of the plates, \
+along the plates themselves.  This current will serve as a source of magnetic \
+field.  BUT!!!  and this is an important BUT.  To change the magnetic field \
+in time is to change the curl of the E field.  This means that our picture \
+of: constant E field changing in time, constant H field changing in time, \
+needs to be revised.   "
+}], "Text",
+ CellChangeTimes->{{3.652615337754921*^9, 3.652615396483121*^9}, {
+  3.6526154275909214`*^9, 3.6526155124765215`*^9}, {3.652615577250121*^9, 
+  3.6526157156815214`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Electric Field, Varying in Time and Space", "Section",
+ CellChangeTimes->{{3.6410565257921352`*^9, 3.6410565303035064`*^9}, {
+  3.641058395041212*^9, 3.6410583991429787`*^9}, {3.6411246879071646`*^9, 
+  3.6411246917385397`*^9}, {3.641150099716563*^9, 3.641150110392295*^9}, {
+  3.6411503974564085`*^9, 3.6411504082861395`*^9}, {3.641827206477315*^9, 
+  3.6418272138125153`*^9}, {3.641827447036315*^9, 3.641827448185115*^9}, {
+  3.6429623825754547`*^9, 3.6429623864708443`*^9}, {3.643020310425987*^9, 
+  3.643020316595987*^9}, {3.6445138621691628`*^9, 3.6445138653771625`*^9}, {
+  3.645810078511674*^9, 3.6458100800560737`*^9}, {3.6458118643496733`*^9, 
+  3.6458118696586733`*^9}, {3.6462324190221186`*^9, 3.6462324283101788`*^9}, {
+  3.6462325317397165`*^9, 3.6462325341627326`*^9}, {3.6466684938291645`*^9, 
+  3.646668500170764*^9}, {3.646826179340047*^9, 3.6468261879606466`*^9}, {
+  3.646826289887847*^9, 3.6468262936172466`*^9}, {3.6526157410613213`*^9, 
+  3.6526157521579213`*^9}}],
+
+Cell[TextData[{
+ "Let\[CloseCurlyQuote]s try a new approach.  Let\[CloseCurlyQuote]s allow \
+our electric field to vary in both time and space: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["E", "\[RightVector]"], "=", 
+    RowBox[{"4", 
+     RowBox[{"cos", "[", 
+      RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+     OverscriptBox["y", "^"]}]}], TraditionalForm]]],
+ ".  We\[CloseCurlyQuote]ll set \[Omega]=2\[Pi] again and \[Beta]=4\[Pi]"
+}], "Text",
+ CellChangeTimes->{{3.6468263002014465`*^9, 3.6468263439684467`*^9}, {
+  3.6468265025384464`*^9, 3.646826609142047*^9}, {3.6468266617632465`*^9, 
+  3.6468268130990467`*^9}, {3.6526157559653215`*^9, 3.652615827638521*^9}, {
+  3.652615866304721*^9, 3.6526159023445215`*^9}, {3.6526177590785213`*^9, 
+  3.652617766997121*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"e2", "=", 
+  RowBox[{"{", 
+   RowBox[{"0", ",", 
+    RowBox[{"4", "*", 
+     RowBox[{"Cos", "[", 
+      RowBox[{
+       RowBox[{"2", "*", "Pi", "*", "t"}], "-", 
+       RowBox[{"4", "*", "Pi", "*", "x"}]}], "]"}]}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.6468268462272463`*^9, 3.6468268606008463`*^9}, {
+  3.6526157829753213`*^9, 3.6526158004709215`*^9}, {3.6526159098199215`*^9, 
+  3.6526159139247212`*^9}, {3.652617780887121*^9, 3.652617781745121*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", 
+   RowBox[{"4", " ", 
+    RowBox[{"Cos", "[", 
+     RowBox[{
+      RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+      RowBox[{"4", " ", "\[Pi]", " ", "x"}]}], "]"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6526159178725214`*^9, 3.652617782618721*^9, 
+  3.6528747411073*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"VectorPlot", "[", 
+    RowBox[{
+     RowBox[{"e2", "/.", 
+      RowBox[{"{", 
+       RowBox[{"t", "\[Rule]", " ", "to"}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"VectorScale", "\[Rule]", "Small"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"to", ",", "0", ",", "3"}], "}"}], ",", " ", 
+   RowBox[{"AnimationRate", "\[Rule]", ".1"}], ",", 
+   RowBox[{"AnimationRepetitions", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652615942585521*^9, 3.652615950249121*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`to$$ = 0.8240799903869629, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`to$$], 0, 3}}, Typeset`size$$ = {324., {157., 161.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`to$1469127$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`to$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`to$$, $CellContext`to$1469127$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> VectorPlot[
+        ReplaceAll[$CellContext`e2, {$CellContext`t -> $CellContext`to$$}], \
+{$CellContext`x, -1, 1}, {$CellContext`y, -1, 1}, VectorScale -> Small], 
+      "Specifications" :> {{$CellContext`to$$, 0, 3, AnimationRate -> 0.1, 
+         AnimationRepetitions -> 1, 
+         AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{367., {189., 196.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652615953560321*^9, 3.652617785598321*^9, 
+  3.6528747448507*^9}]
+}, Open  ]],
+
+Cell["This looks intriguing....", "Text",
+ CellChangeTimes->{{3.652615978197321*^9, 3.6526159839069214`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"VectorDensityPlot", "[", 
+    RowBox[{
+     RowBox[{"e2", "/.", 
+      RowBox[{"{", 
+       RowBox[{"t", "\[Rule]", " ", "to"}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"VectorScale", "\[Rule]", "Small"}], ",", " ", 
+     RowBox[{"ColorFunction", "\[Rule]", "\"\<Rainbow\>\""}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"to", ",", "0", ",", "3"}], "}"}], ",", " ", 
+   RowBox[{"AnimationRate", "\[Rule]", ".1"}], ",", 
+   RowBox[{"AnimationRepetitions", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652615993271721*^9, 3.6526159940399213`*^9}, {
+   3.652616059904321*^9, 3.6526160952757215`*^9}, 3.652616132941521*^9}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`to$$ = 0.27777996063232424`, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`to$$], 0, 3}}, Typeset`size$$ = {324., {157., 161.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`to$1472724$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`to$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`to$$, $CellContext`to$1472724$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> VectorDensityPlot[
+        ReplaceAll[$CellContext`e2, {$CellContext`t -> $CellContext`to$$}], \
+{$CellContext`x, -1, 1}, {$CellContext`y, -1, 1}, VectorScale -> Small, 
+        ColorFunction -> "Rainbow"], 
+      "Specifications" :> {{$CellContext`to$$, 0, 3, AnimationRate -> 0.1, 
+         AnimationRepetitions -> 1, 
+         AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{367., {189., 196.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.652616087027321*^9, 3.6526160967265215`*^9}, 
+   3.6526161340803213`*^9, 3.6526177910593214`*^9, 3.6528747589571*^9}]
+}, Open  ]],
+
+Cell["What if we just plotted the magnitude of the E field?", "Text",
+ CellChangeTimes->{{3.6526161602609215`*^9, 3.652616171147921*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"e2", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{"t", "\[Rule]", " ", "to"}], "}"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"to", ",", "0", ",", "3"}], "}"}], ",", " ", 
+   RowBox[{"AnimationRate", "\[Rule]", ".1"}], ",", 
+   RowBox[{"AnimationRepetitions", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652616179434521*^9, 3.6526162402913213`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`to$$ = 0.26895999908447266`, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`to$$], 0, 3}}, Typeset`size$$ = {324., {98., 102.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`to$1476184$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`to$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`to$$, $CellContext`to$1476184$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[
+        ReplaceAll[
+         Part[$CellContext`e2, 
+          2], {$CellContext`t -> $CellContext`to$$}], {$CellContext`x, -1, 
+         1}], "Specifications" :> {{$CellContext`to$$, 0, 3, AnimationRate -> 
+         0.1, AnimationRepetitions -> 1, 
+         AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{367., {130., 137.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.6526161951575212`*^9, 3.652616241180521*^9}, 
+   3.652617800869921*^9, 3.6528747679693*^9}]
+}, Open  ]],
+
+Cell["\<\
+This looks like a wave!!
+Let\[CloseCurlyQuote]s see how our new system handles Maxwell\
+\[CloseCurlyQuote]s Equations.\
+\>", "Text",
+ CellChangeTimes->{{3.6526162659427214`*^9, 3.6526162899329214`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"curle2", "=", 
+  RowBox[{"Curl", "[", 
+   RowBox[{"e2", ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.652613864544221*^9, 3.652613878716221*^9}, {
+  3.6526163094721212`*^9, 3.6526163111277213`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"16", " ", "\[Pi]", " ", 
+  RowBox[{"Sin", "[", 
+   RowBox[{
+    RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+    RowBox[{"4", " ", "\[Pi]", " ", "x"}]}], "]"}]}]], "Output",
+ CellChangeTimes->{3.652613879622021*^9, 3.652616311876521*^9, 
+  3.652617808408721*^9, 3.6528747803570995`*^9}]
+}, Open  ]],
+
+Cell["\<\
+AHA!!  This clearly says that we have a non-zero Curl for E!  Remember, \
+having a non-zero curl means that as we move in one direction, our field is \
+growing or shrinking in an orthogonal direction.  So we are not electrostatic \
+anymore, which is the key to everything falling into place!\
+\>", "Text",
+ CellChangeTimes->{{3.652616320147521*^9, 3.6526163550305214`*^9}, {
+  3.6528747960106997`*^9, 3.6528748274068995`*^9}}],
+
+Cell[TextData[{
+ "This means that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["B", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Del]", "\[Cross]", 
+       OverscriptBox["E", "\[RightVector]"]}], "1"}], "=", 
+     RowBox[{"16", " ", 
+      RowBox[{"\[Pi]Sin", "[", 
+       RowBox[{
+        RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+        RowBox[{"4", " ", "\[Pi]x"}]}], "]"}], 
+      OverscriptBox["z", "^"]}]}]}], TraditionalForm]]],
+ ", so ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["B", "\[RightVector]"], "=", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", 
+       RowBox[{
+        SubscriptBox["B", "z"], "(", 
+        RowBox[{"x", ",", "t"}], ")"}]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"8", 
+       RowBox[{"Cos", "[", 
+        RowBox[{
+         RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+         RowBox[{"4", " ", "\[Pi]x"}]}], "]"}], 
+       OverscriptBox["z", "^"]}], "=", 
+      RowBox[{"NOT", " ", "constant"}]}]}]}], TraditionalForm]]],
+ " in time or space!\nUsing Ampere\[CloseCurlyQuote]s Law:"
+}], "Text",
+ CellChangeTimes->{{3.652613889568221*^9, 3.652613948129021*^9}, {
+  3.652614136007821*^9, 3.6526141368346214`*^9}, {3.652616358714121*^9, 
+  3.652616370690321*^9}, {3.652616429645521*^9, 3.652616458962121*^9}, {
+  3.652617715893321*^9, 3.652617735714321*^9}, {3.6526178152913213`*^9, 
+  3.652617919559721*^9}, {3.6528750254070997`*^9, 3.6528750396226997`*^9}, {
+  3.6528750726775*^9, 3.6528750801841*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"curlh1", "=", 
+  RowBox[{"-", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"epso", "*", "e2"}], ",", "t"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.652613960678421*^9, 3.652613985566221*^9}, {
+   3.6526150541815214`*^9, 3.652615056786721*^9}, 3.6526164739919214`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", 
+   RowBox[{"8", " ", "epso", " ", "\[Pi]", " ", 
+    RowBox[{"Sin", "[", 
+     RowBox[{
+      RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+      RowBox[{"4", " ", "\[Pi]", " ", "x"}]}], "]"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6526139864086213`*^9, 3.652615062359521*^9, 
+  3.652616475614321*^9, 3.652617902100921*^9, 3.6528748373949*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "which means that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Del]", "\[Cross]", 
+     OverscriptBox["H", "\[RightVector]"]}], "=", 
+    RowBox[{
+     RowBox[{"8", " ", 
+      SubscriptBox["\[Pi]\[Epsilon]", "o"], " ", 
+      RowBox[{"Sin", "[", 
+       RowBox[{
+        RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+        RowBox[{"4", "\[Pi]x"}]}], "]"}], 
+      OverscriptBox["y", "^"]}], "=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["H", "x"]}], 
+         RowBox[{"\[PartialD]", "z"}]], "-", 
+        FractionBox[
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["H", "z"]}], 
+         RowBox[{"\[PartialD]", "x"}]]}], ")"}], 
+      OverscriptBox["y", "^"]}]}]}], TraditionalForm]]],
+ "\nLet\[CloseCurlyQuote]s assume that we have only an H field in the z \
+direction.  This means that ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"-", 
+    FractionBox[
+     RowBox[{"\[PartialD]", 
+      SubscriptBox["H", "z"]}], 
+     RowBox[{"\[PartialD]", "x"}]]}], "="}]]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"8", " ", 
+    SubscriptBox["\[Pi]\[Epsilon]", "o"], " ", 
+    RowBox[{"Sin", "[", 
+     RowBox[{
+      RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+      RowBox[{"4", "\[Pi]x"}]}], "]"}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["H", "z"], "=", 
+    RowBox[{"2", 
+     SubscriptBox["\[Epsilon]", "o"], 
+     RowBox[{"Cos", "[", 
+      RowBox[{
+       RowBox[{"2", "\[Pi]\[Omega]"}], "-", 
+       RowBox[{"4", "\[Pi]x"}]}], "]"}]}]}], TraditionalForm]]],
+ "\nSo from  \[Del]\[Cross]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["E", "\[RightVector]"], "=", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["B", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}]}], TraditionalForm]]],
+ " we get ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["B", "\[RightVector]"], "=", 
+    RowBox[{"8", 
+     RowBox[{"Cos", "[", 
+      RowBox[{
+       RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+       RowBox[{"4", " ", "\[Pi]x"}]}], "]"}], 
+     OverscriptBox["z", "^"]}]}], TraditionalForm]]],
+ ", or ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "=", 
+    RowBox[{
+     FractionBox["8", 
+      SubscriptBox["\[Mu]", "o"]], 
+     RowBox[{"Cos", "[", 
+      RowBox[{
+       RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+       RowBox[{"4", " ", "\[Pi]x"}]}], "]"}], 
+     OverscriptBox["z", "^"]}]}], TraditionalForm]]],
+ " and from \n\[Del]\[Cross]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "=", 
+    RowBox[{
+     OverscriptBox["J", "\[RightVector]"], "+", 
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["D", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]]}]}], TraditionalForm]]],
+ " we get ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"H", "=", 
+    RowBox[{"2", 
+     SubscriptBox["\[Epsilon]", "o"], 
+     RowBox[{"Cos", "[", 
+      RowBox[{
+       RowBox[{"2", "\[Pi]\[Omega]"}], "-", 
+       RowBox[{"4", "\[Pi]x"}]}], "]"}]}]}], TraditionalForm]]],
+ ".\nSo what is the problem??? Well...\n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"H", "=", 
+    RowBox[{
+     RowBox[{"2", 
+      SubscriptBox["\[Epsilon]", "o"], 
+      RowBox[{"Cos", "[", 
+       RowBox[{
+        RowBox[{"2", "\[Pi]\[Omega]"}], "-", 
+        RowBox[{"4", "\[Pi]x"}]}], "]"}]}], "\[NotEqual]", 
+     RowBox[{
+      FractionBox["8", 
+       SubscriptBox["\[Mu]", "o"]], 
+      RowBox[{"Cos", "[", 
+       RowBox[{
+        RowBox[{"2", " ", "\[Pi]", " ", "t"}], "-", 
+        RowBox[{"4", " ", "\[Pi]x"}]}], "]"}]}]}]}], TraditionalForm]]],
+ "\nWell, we are clearly in better shape than before.  But we still don\
+\[CloseCurlyQuote]t quite have this thing working...the amplitudes we get for \
+H are different depending on whether we use Faraday or Ampere\
+\[CloseCurlyQuote]s Law, so we are clearly still missing something."
+}], "Text",
+ CellChangeTimes->{{3.652613999019421*^9, 3.6526141198598213`*^9}, {
+  3.652614158669021*^9, 3.6526141620406213`*^9}, {3.652614240700621*^9, 
+  3.6526142569118214`*^9}, {3.6526149975701213`*^9, 3.652615037772921*^9}, {
+  3.6526150704321213`*^9, 3.652615085265921*^9}, {3.652616507532121*^9, 
+  3.652616513102321*^9}, {3.652617409311721*^9, 3.6526175545445213`*^9}, {
+  3.652617605362121*^9, 3.6526176493907213`*^9}, {3.6526179235699215`*^9, 
+  3.652617960077321*^9}, {3.652617996776121*^9, 3.6526182416169214`*^9}, {
+  3.6528748994902997`*^9, 3.6528749522732997`*^9}, {3.6528750971900997`*^9, 
+  3.6528751783457*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["What are \[Beta], \[Omega]?", "Section",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBmIQrRO5c+FhhdeOwds8F4HoOYGJ3UeAtMfkJ2C6jv3v
+yydAWm5R+SsQLfauLOgjkF7XeyYYRD+bta4cRPNpcFaCaC238x+slV47KjDs
++gii6zQf8tkA6bI3rPwgWiHrkmWaymtHDUF/KxC9fuHZpiYgHSw0uRlEn8g8
+eiJa/bXjdkGdkyB6UfyFzVc0XztGn2bcAqLbDLgnXwXSt4S3gmmjrQlvFmm9
+dvzzpvMtiD60uvwXiJY2PQqmWzp23SzXBrqzrPUWiF71MOvGESA9b2/dTRBt
+l2nzDETXHNgMpp/xTnY8CqS/xHA5gejDE+4yXDQDhkdNPhOIBgBF05ut
+  "]],
+
+Cell["\<\
+Let\[CloseCurlyQuote]s try to figure out what is going on above by looking \
+more closely at our wave.  Since there is no y-dependence on our fields, we \
+can plot as a line plot, and not worry about vectors for now.  Moreover, \
+since we know how to make plots that we can manipulate in real time, let\
+\[CloseCurlyQuote]s make a plot that allows us to vary \[Beta] and \[Omega] \
+so that we can better understand what these terms are.\
+\>", "Text",
+ CellChangeTimes->{{3.646329575026436*^9, 3.6463296081602354`*^9}, {
+   3.6468270487604465`*^9, 3.6468270887240467`*^9}, {3.6468271969426465`*^9, 
+   3.6468272717560463`*^9}, {3.6468273042476463`*^9, 3.646827350616647*^9}, {
+   3.6526182639455214`*^9, 3.6526183545357213`*^9}, 3.6528752100723*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"e3", "[", 
+   RowBox[{"\[Omega]_", ",", "\[Beta]_"}], " ", "]"}], ":=", 
+  RowBox[{"Cos", "[", 
+   RowBox[{
+    RowBox[{"\[Omega]", "*", "t"}], "-", 
+    RowBox[{"\[Beta]", "*", "x"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.652618358360721*^9, 3.6526184136105213`*^9}, {
+  3.652618578916521*^9, 3.652618583412321*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Animate", "[", 
+    RowBox[{
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"e3", "[", 
+         RowBox[{"\[Omega]", ",", "\[Beta]"}], "]"}], "/.", 
+        RowBox[{"{", 
+         RowBox[{"t", "\[Rule]", "to"}], "}"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", " ", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "}"}]}], ",", " ", 
+       RowBox[{"PlotLabel", "\[Rule]", 
+        RowBox[{"{", "to", "}"}]}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"to", ",", "0", ",", "10"}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Omega]", ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "0.1", ",", "0.2", ",", "0.5", ",", "1", ",", "2", ",", "5", ",", 
+        "10"}], "}"}], "*", "Pi"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Beta]", ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "0.1", ",", "0.2", ",", "0.5", ",", "1", ",", "2", ",", "5", ",", 
+        "10"}], "}"}], "*", "Pi"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652618418494321*^9, 3.652618534867321*^9}, {
+  3.6526185676639214`*^9, 3.6526186159967213`*^9}, {3.652618815144721*^9, 
+  3.652618842244921*^9}, {3.652619061217121*^9, 3.6526190762917213`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Beta]$$ = Pi, $CellContext`\[Omega]$$ = 
+    Pi, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Omega]$$], {
+      0.3141592653589793, 0.6283185307179586, 1.5707963267948966`, Pi, 2 Pi, 
+       5 Pi, 10 Pi}}, {
+      Hold[$CellContext`\[Beta]$$], {
+      0.3141592653589793, 0.6283185307179586, 1.5707963267948966`, Pi, 2 Pi, 
+       5 Pi, 10 Pi}}}, Typeset`size$$ = {367., {143., 150.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`\[Omega]$1478407$$ = 
+    0, $CellContext`\[Beta]$1478408$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`\[Beta]$$ = 
+        0.3141592653589793, $CellContext`\[Omega]$$ = 0.3141592653589793}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Omega]$$, $CellContext`\[Omega]$1478407$$, 0], 
+        Hold[$CellContext`\[Beta]$$, $CellContext`\[Beta]$1478408$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Animate[
+        Plot[
+         ReplaceAll[
+          $CellContext`e3[$CellContext`\[Omega]$$, $CellContext`\[Beta]$$], \
+{$CellContext`t -> $CellContext`to}], {$CellContext`x, -5, 5}, 
+         PlotRange -> {-1, 1}, 
+         PlotLabel -> {$CellContext`to}], {$CellContext`to, 0, 10}], 
+      "Specifications" :> {{$CellContext`\[Omega]$$, {
+         0.3141592653589793, 0.6283185307179586, 1.5707963267948966`, Pi, 2 
+          Pi, 5 Pi, 10 Pi}}, {$CellContext`\[Beta]$$, {
+         0.3141592653589793, 0.6283185307179586, 1.5707963267948966`, Pi, 2 
+          Pi, 5 Pi, 10 Pi}}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{410., {199., 206.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.652619085268721*^9, 3.6528752154251*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "OK, let\[CloseCurlyQuote]s start with \[Omega]=\[Pi].\nFill in as much of \
+the table below as you can for changing values of \[Beta]\n",
+ Cell[BoxData[GridBox[{
+    {"\[Beta]", "\[Omega]", 
+     RowBox[{"Length", " ", "Between", " ", "Peaks", " ", 
+      RowBox[{"(", "\[Lambda]", ")"}]}], 
+     RowBox[{"Time", " ", "Between", " ", "Peaks", " ", 
+      RowBox[{"(", "T", ")"}]}], 
+     RowBox[{"Speed", " ", "of", " ", "Wave", " ", 
+      RowBox[{"(", 
+       RowBox[{"\[Lambda]", "/", "T"}], ")"}]}]},
+    {
+     RowBox[{"0.1", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"0.2", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"0.5", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"1", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"2", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"5", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"10", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]}
+   },
+   GridBoxDividers->{
+    "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+     "RowsIndexed" -> {}}]]]
+}], "Text",
+ CellChangeTimes->{{3.6526186403145213`*^9, 3.652618687398721*^9}, {
+  3.6526187225157213`*^9, 3.652618795763521*^9}, {3.6526189519997215`*^9, 
+  3.6526190117811213`*^9}, {3.6526193241923213`*^9, 3.6526193408443213`*^9}, {
+  3.6528752560399*^9, 3.6528752626905*^9}}],
+
+Cell[TextData[{
+ "You may need to freeze the plot and move back and forth to get reasonable \
+numbers.  You may also need to change the length or time scale, or slow the \
+animation down.  You can read the times off of the plot label (above the \
+y-axis).\nWhat do we see?\n1) The distance between peaks in space, which we \
+call the wavelength (\[Lambda]), seems to go as 2\[Pi]/\[Beta]\n2) The time \
+between successive peaks at a point in space does not change, T=2\[Pi]/\
+\[Omega]\n3) In order for the time to remain the same between peaks, we have \
+to speed up the wave in order for longer \[Lambda] (smaller \[Beta]) to \
+travel a full wavelength in the same amount of time.\n\nTry the same thing, \
+but this time hold \[Beta]=\[Pi], and vary \[Omega]\n",
+ Cell[BoxData[GridBox[{
+    {"\[Omega]", "\[Beta]", 
+     RowBox[{"Length", " ", "Between", " ", "Peaks", " ", 
+      RowBox[{"(", "\[Lambda]", ")"}]}], 
+     RowBox[{"Time", " ", "Between", " ", "Peaks", " ", 
+      RowBox[{"(", "T", ")"}]}], 
+     RowBox[{"Speed", " ", "of", " ", "Wave", " ", 
+      RowBox[{"(", 
+       RowBox[{"\[Lambda]", "/", "T"}], ")"}]}]},
+    {
+     RowBox[{"0.1", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"0.2", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"0.5", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"1", "\[Pi]"}], "\[Pi]", "\[Placeholder]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"2", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"5", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]},
+    {
+     RowBox[{"10", "\[Pi]"}], "\[Pi]", 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]], 
+     StyleBox["\[Placeholder]",
+      Background->RGBColor[1, 1, 0]]}
+   },
+   GridBoxDividers->{
+    "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+     "RowsIndexed" -> {}}]]],
+ "\nWhat do we see?\n1) The time between successive peaks at a point in \
+space, which we call the period (T), seems to go as 2\[Pi]/\[Omega]\n2) The \
+time between successive peaks at a point in space does not change, T=2\[Pi]/\
+\[Omega]\n3) In order for the time to remain the same between peaks, we have \
+to speed up the wave in order for longer \[Lambda] (smaller \[Beta]) to \
+travel a full wavelength in the same amount of time.\nAll of this suggests \
+that the speed of the wave depends on both \[Omega] and \[Beta]."
+}], "Text",
+ CellChangeTimes->{{3.652618870613521*^9, 3.652618934596721*^9}, {
+  3.652619020503521*^9, 3.6526190268079214`*^9}, {3.6526191147109213`*^9, 
+  3.652619312349921*^9}, {3.652619350756121*^9, 3.652619390495721*^9}, {
+  3.652619727679721*^9, 3.6526197624667215`*^9}, {3.6528753059618998`*^9, 
+  3.6528753104546995`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Putting Maxwell\[CloseCurlyQuote]s Equations Together", "Section",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQAWIQrRO5c+FhhdeOwds8F4HoOYGJ3UeAtMfkJ2C6jv3v
+yydAWm5R+SsQLfauLOgjkF7XeyYYRD+bta4cRPNpcFaCaC238x+slV47KjDs
++gii6zQf8tkA6bI3rPwgWiHrkmWaymtHDUF/KxC9fuHZpiYgHSw0uRlEn8g8
+eiJa/bXjdkGdkyB6UfyFzVc0XztGn2bcAqLbDLgnXwXSt4S3gmmjrQlvFmm9
+dvzzpvMtiD60uvwXiJY2PQqmWzp23SzXBrqzrPUWiF71MOvGESA9b2/dTRBt
+l2nzDETXHNgMpp/xTnY8CqS/xHA5gejDE+4yXDQDhkdNPhOIjs7buw9E18hV
+HADRAEtzpCo=
+  "]],
+
+Cell[TextData[{
+ "If we assume that our wave looks something like ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["E", "\[RightVector]"], "=", 
+    RowBox[{
+     SubscriptBox["E", "o"], 
+     RowBox[{"Cos", "[", 
+      RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+     OverscriptBox["y", "^"]}]}], TraditionalForm]]],
+ ", we can apply Maxwell\[CloseCurlyQuote]s Equations, assuming source and \
+current free medium (",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["J", "\[RightVector]"], "=", 
+    RowBox[{"\[Rho]", "=", "0"}]}], TraditionalForm]]],
+ ").\n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Del]", "\[Cross]", 
+     OverscriptBox["E", "\[RightVector]"]}], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"\[PartialD]", 
+        OverscriptBox["B", "\[RightVector]"]}], 
+       RowBox[{"\[PartialD]", "t"}]]}], "=", 
+     RowBox[{
+      SubscriptBox["E", "o"], 
+      RowBox[{"\[Beta]Sin", "[", 
+       RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+      OverscriptBox["z", "^"]}]}]}], TraditionalForm]]],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", 
+      OverscriptBox["H", "\[RightVector]"]}], 
+     RowBox[{"\[PartialD]", "t"}]], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["E", "o"], "\[Beta]"}], 
+      SubscriptBox["\[Mu]", "o"]], 
+     RowBox[{"Sin", "[", 
+      RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+     OverscriptBox["z", "^"]}]}], TraditionalForm]]],
+ ", so \n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["E", "o"], "\[Beta]"}], 
+      SubscriptBox["\[Omega]\[Mu]", "o"]], 
+     RowBox[{"Cos", "[", 
+      RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+     OverscriptBox["z", "^"]}]}], TraditionalForm]]],
+ "\n From the Ampere\[CloseCurlyQuote]s Law, we get \n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Del]", "\[Cross]", 
+     OverscriptBox["H", "\[RightVector]"]}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"\[PartialD]", 
+       OverscriptBox["D", "\[RightVector]"]}], 
+      RowBox[{"\[PartialD]", "t"}]], "=", 
+     RowBox[{
+      SubscriptBox["E", "o"], 
+      SubscriptBox["\[Omega]\[Epsilon]", "o"], 
+      RowBox[{"Sin", "[", 
+       RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+      OverscriptBox["z", "^"]}]}]}], TraditionalForm]]],
+ ", and thus ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["H", "\[RightVector]"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["E", "o"], 
+       SubscriptBox["\[Omega]\[Epsilon]", "o"]}], "\[Beta]"], 
+     RowBox[{"Cos", "[", 
+      RowBox[{"\[Omega]t", "-", "\[Beta]x"}], "]"}], 
+     OverscriptBox["z", "^"]}]}], TraditionalForm]]],
+ "\n So this can only be true if\n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      SubscriptBox["E", "o"], 
+      SubscriptBox["\[Omega]\[Epsilon]", "o"]}], "\[Beta]"], "=", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["E", "o"], "\[Beta]"}], 
+     SubscriptBox["\[Omega]\[Mu]", "o"]]}], TraditionalForm]]],
+ ", or in other words, if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["\[Omega]", "\[Beta]"], "=", 
+    SqrtBox[
+     FractionBox["1", 
+      RowBox[{
+       SubscriptBox["\[Mu]", "o"], 
+       SubscriptBox["\[Epsilon]", "o"]}]]]}], TraditionalForm]]],
+ ".  From above we know that \n ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["\[Omega]", "\[Beta]"], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", 
+       RowBox[{"\[Pi]", "/", "T"}]}], 
+      RowBox[{"2", 
+       RowBox[{"\[Pi]", "/", "\[Lambda]"}]}]], "=", 
+     RowBox[{
+      FractionBox["\[Lambda]", "T"], "=", "v"}]}]}], TraditionalForm]]],
+ "\n In other words, the speed of our wave is determined by the properties of \
+our materials ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", "o"], ",", 
+    SubscriptBox["\[Epsilon]", "o"]}], TraditionalForm]]],
+ ", which in turn, determines the relationship between the temporal frequency \
+of the wave (\[Omega]) and the spatial \[OpenCurlyDoubleQuote]frequency\
+\[CloseCurlyDoubleQuote] of the wave (\[Beta]).  If we replace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", "o"], ",", 
+    SubscriptBox["\[Epsilon]", "o"]}], TraditionalForm]]],
+ " with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Mu]", ",", "\[Epsilon]"}], TraditionalForm]]],
+ ", then we would expect the velocity of our wave to be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["\[Omega]", "\[Beta]"], "=", 
+    RowBox[{"v", "=", 
+     SqrtBox[
+      FractionBox["1", "\[Mu]\[Epsilon]"]]}]}], TraditionalForm]]],
+ ".\n We also see that the Magnetic Field associated with our Electric Field \
+has the same time dependence (Cos), but is pointing in the ",
+ Cell[BoxData[
+  FormBox[
+   OverscriptBox["z", "^"], TraditionalForm]]],
+ " direction, and is scaled by a factor ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["\[Omega]\[Epsilon]", "\[Beta]"], "=", 
+    RowBox[{"\[Epsilon]", 
+     SqrtBox[
+      FractionBox["1", "\[Mu]\[Epsilon]"]]}]}], TraditionalForm]]],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"=", 
+    SqrtBox[
+     FractionBox["\[Epsilon]", "\[Mu]"]]}], TraditionalForm]]]
+}], "Text",
+ CellChangeTimes->{{3.646329575026436*^9, 3.6463296081602354`*^9}, {
+  3.6468270487604465`*^9, 3.6468270887240467`*^9}, {3.6468271969426465`*^9, 
+  3.6468272717560463`*^9}, {3.6468273042476463`*^9, 3.646827350616647*^9}, {
+  3.6526182639455214`*^9, 3.6526183545357213`*^9}, {3.6526197820947213`*^9, 
+  3.652619860339721*^9}, {3.6526198910917215`*^9, 3.6526202227757215`*^9}, {
+  3.652620253846721*^9, 3.652620336701721*^9}, {3.6526204113187213`*^9, 
+  3.652620706518721*^9}, {3.6526207385257215`*^9, 3.6526208823957214`*^9}, {
+  3.652621988422721*^9, 3.652622114208721*^9}, {3.6528753407929*^9, 
+  3.6528753424621*^9}}],
+
+Cell[TextData[{
+ "Use the above to write an expression that determines the velocity of a wave \
+that obeys Maxwell\[CloseCurlyQuote]s Equations in a media with \[Mu]=",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "o"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", but have your ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Epsilon]", "r"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " be an input to the expression."
+}], "Text",
+ CellChangeTimes->{{3.652620889399721*^9, 3.652620928096721*^9}, {
+  3.6526210337307215`*^9, 3.652621080683321*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"epso", "=", 
+   RowBox[{"8.85", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"-", "12"}]}]}]}], ";", " ", 
+  RowBox[{"muo", "=", 
+   RowBox[{"1.2566", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"-", "6"}]}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6526209367757215`*^9, 3.652620970613721*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"vwave", "[", "eps_", "]"}], ":=", 
+  RowBox[{"1", "/", 
+   RowBox[{"Sqrt", "[", 
+    RowBox[{"muo", "*", "eps", "*", "epso"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.652620982192921*^9, 3.6526210154723215`*^9}},
+ Background->RGBColor[1, 1, 0]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"vwave", "[", "1", "]"}]], "Input",
+ CellChangeTimes->{{3.652621085811121*^9, 3.6526210929709215`*^9}}],
+
+Cell[BoxData["2.99867802432353`*^8"], "Output",
+ CellChangeTimes->{
+  3.652621093486721*^9, {3.6528753841115*^9, 3.6528753900133*^9}}]
+}, Open  ]],
+
+Cell[TextData[{
+ "What is the velocity of a wave with  \[Mu]=",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "o"], TraditionalForm]]],
+ " and \[Epsilon]=",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Epsilon]", "o"], TraditionalForm]]],
+ "?  Choose ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Epsilon]", "r"], "=", 
+    RowBox[{
+     SubscriptBox["\[Mu]", "r"], "=", "1"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\nWe will go through this again on Wednesday, but we have enough now to be \
+able to plot and animate a wave that obeys Maxwell\[CloseCurlyQuote]s \
+equations."
+}], "Text",
+ CellChangeTimes->{{3.652621101209721*^9, 3.652621138186921*^9}, {
+  3.652621924878521*^9, 3.6526219266881213`*^9}, {3.6528754009539*^9, 
+  3.6528754569529*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Animating/Plotting Waves that Obey Maxwell\[CloseCurlyQuote]s \
+Equations", "Section",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBWIQrRO5c+FhhdeOwds8F4HoOYGJ3UeAtMfkJ2C6jv3v
+yydAWm5R+SsQLfauLOgjkF7XeyYYRD+bta4cRPNpcFaCaC238x+slV47KjDs
++gii6zQf8tkA6bI3rPwgWiHrkmWaymtHDUF/KxC9fuHZpiYgHSw0uRlEn8g8
+eiJa/bXjdkGdkyB6UfyFzVc0XztGn2bcAqLbDLgnXwXSt4S3gmmjrQlvFmm9
+dvzzpvMtiD60uvwXiJY2PQqmWzp23SzXBrqzrPUWiF71MOvGESA9b2/dTRBt
+l2nzDETXHNgMpp/xTnY8CqS/xHA5gejDE+4yXDQDhkdNPhOIjs7buw9E18hV
+HADREgeTcy4BaZYl33JBNADR2axG
+  "]],
+
+Cell[TextData[{
+ "For the remainder of class, write a function that plots/animates a wave \
+obeying Maxwell\[CloseCurlyQuote]s equations.  Allow as inputs \[Beta], ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["E", "o"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Epsilon]", "r"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", assuming \[Mu]=",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "o"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ".  Note that you will have to be careful about your time scale, since if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Epsilon]", "r"], "~", "1"}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ ", your time scale should be in the 10-100\[CloseCurlyQuote]s of nanoseconds \
+range..."
+}], "Text",
+ CellChangeTimes->{{3.646329575026436*^9, 3.6463296081602354`*^9}, {
+  3.6468270487604465`*^9, 3.6468270887240467`*^9}, {3.6468271969426465`*^9, 
+  3.6468272717560463`*^9}, {3.6468273042476463`*^9, 3.646827350616647*^9}, {
+  3.6526182639455214`*^9, 3.6526183545357213`*^9}, {3.6526197820947213`*^9, 
+  3.652619860339721*^9}, {3.6526198910917215`*^9, 3.6526202227757215`*^9}, {
+  3.652620253846721*^9, 3.652620336701721*^9}, {3.6526204113187213`*^9, 
+  3.652620706518721*^9}, {3.6526207385257215`*^9, 3.6526208823957214`*^9}, {
+  3.6526211719995213`*^9, 3.652621297293321*^9}, {3.652621404906721*^9, 
+  3.652621481441521*^9}, {3.652621937410321*^9, 3.6526219428677216`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"e4", "[", 
+   RowBox[{"\[Beta]_", ",", "eo_", ",", "er_"}], "]"}], ":=", 
+  RowBox[{"eo", "*", 
+   RowBox[{"Cos", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"\[Beta]", "/", 
+       RowBox[{"(", 
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"epso", "*", "muo", "*", "er"}], "]"}], ")"}]}], "*", "t"}], 
+     "-", 
+     RowBox[{"\[Beta]", "*", "x"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.652621302887121*^9, 3.652621400271521*^9}},
+ Background->RGBColor[1, 1, 0]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Animate", "[", 
+    RowBox[{
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"e4", "[", 
+         RowBox[{"\[Beta]", ",", "eo", ",", "er"}], "]"}], "/.", 
+        RowBox[{"{", 
+         RowBox[{"t", "\[Rule]", "to"}], "}"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{
+          RowBox[{"-", "10"}], "*", 
+          RowBox[{"Pi", "/", "\[Beta]"}]}], ",", 
+         RowBox[{"10", "*", 
+          RowBox[{"Pi", "/", "\[Beta]"}]}]}], "}"}], ",", " ", 
+       RowBox[{"PlotRange", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "eo"}], ",", "eo"}], "}"}]}], ",", " ", 
+       RowBox[{"PlotLabel", "\[Rule]", 
+        RowBox[{"{", "to", "}"}]}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"to", ",", "0", ",", 
+       RowBox[{"2", "*", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "7"}]}]}]}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"er", ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2", ",", "10"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Beta]", ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "0.1", ",", "0.2", ",", "0.5", ",", "1", ",", "2", ",", "5", ",", 
+        "10"}], "}"}], "*", "Pi"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"eo", ",", 
+     RowBox[{"{", 
+      RowBox[{".1", ",", "1", ",", "5"}], "}"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.652621506572521*^9, 3.6526216045263214`*^9}, {
+  3.652621640494921*^9, 3.652621744471721*^9}, {3.652621783209321*^9, 
+  3.6526217885067215`*^9}, {3.6526218204795213`*^9, 3.6526218381941214`*^9}},
+ Background->RGBColor[1, 1, 0]],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`eo$$ = 0.1, $CellContext`er$$ = 
+    1, $CellContext`\[Beta]$$ = 0.3141592653589793, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`er$$], {1, 2, 10}}, {
+      Hold[$CellContext`\[Beta]$$], {
+      0.3141592653589793, 0.6283185307179586, 1.5707963267948966`, Pi, 2 Pi, 
+       5 Pi, 10 Pi}}, {
+      Hold[$CellContext`eo$$], {0.1, 1, 5}}}, Typeset`size$$ = {
+    367., {146., 153.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`er$1498377$$ = 
+    0, $CellContext`\[Beta]$1498378$$ = 0, $CellContext`eo$1498379$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`eo$$ = 0.1, $CellContext`er$$ = 
+        1, $CellContext`\[Beta]$$ = 0.3141592653589793}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`er$$, $CellContext`er$1498377$$, 0], 
+        Hold[$CellContext`\[Beta]$$, $CellContext`\[Beta]$1498378$$, 0], 
+        Hold[$CellContext`eo$$, $CellContext`eo$1498379$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Animate[
+        Plot[
+         ReplaceAll[
+          $CellContext`e4[$CellContext`\[Beta]$$, $CellContext`eo$$, \
+$CellContext`er$$], {$CellContext`t -> $CellContext`to}], {$CellContext`x, \
+(-10) (Pi/$CellContext`\[Beta]$$), 10 (Pi/$CellContext`\[Beta]$$)}, 
+         PlotRange -> {-$CellContext`eo$$, $CellContext`eo$$}, 
+         PlotLabel -> {$CellContext`to}], {$CellContext`to, 0, 2 10^(-7)}], 
+      "Specifications" :> {{$CellContext`er$$, {1, 2, 
+         10}}, {$CellContext`\[Beta]$$, {
+         0.3141592653589793, 0.6283185307179586, 1.5707963267948966`, Pi, 2 
+          Pi, 5 Pi, 10 Pi}}, {$CellContext`eo$$, {0.1, 1, 5}}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{410., {212., 219.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.6526216050587215`*^9, 3.6526216607883215`*^9, {3.652621695101921*^9, 
+   3.6526217043079214`*^9}, 3.652621789355121*^9, {3.652621824631121*^9, 
+   3.652621838647521*^9}, 3.6528754745536995`*^9},
+ Background->RGBColor[1, 1, 0]]
+}, Open  ]],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.6526218817727213`*^9, 3.6526219006705213`*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1080, 903},
+WindowMargins->{{176, Automatic}, {Automatic, 23}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"10.2 for Microsoft Windows (64-bit) (July 6, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 412, 5, 91, "Title"],
+Cell[995, 29, 1774, 38, 103, "Text"],
+Cell[CellGroupData[{
+Cell[2794, 71, 104, 1, 61, "Section"],
+Cell[2901, 74, 885, 16, 47, "Text"],
+Cell[3789, 92, 353, 5, 29, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4179, 102, 872, 11, 61, "Section"],
+Cell[5054, 115, 3288, 63, 118, "Text"],
+Cell[CellGroupData[{
+Cell[8367, 182, 312, 8, 29, "Input"],
+Cell[8682, 192, 310, 8, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9029, 205, 1396, 32, 50, "Input"],
+Cell[10428, 239, 2320, 46, 400, "Output"]
+}, Open  ]],
+Cell[12763, 288, 370, 6, 47, "Text"],
+Cell[CellGroupData[{
+Cell[13158, 298, 722, 19, 50, "Input"],
+Cell[13883, 319, 2125, 41, 400, "Output"]
+}, Open  ]],
+Cell[16023, 363, 537, 15, 40, "Text"],
+Cell[CellGroupData[{
+Cell[16585, 382, 227, 6, 29, "Input"],
+Cell[16815, 390, 90, 1, 28, "Output"]
+}, Open  ]],
+Cell[16920, 394, 1065, 35, 40, "Text"],
+Cell[CellGroupData[{
+Cell[18010, 433, 273, 7, 29, "Input"],
+Cell[18286, 442, 262, 6, 28, "Output"]
+}, Open  ]],
+Cell[18563, 451, 1273, 33, 75, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19873, 489, 972, 13, 61, "Section"],
+Cell[20848, 504, 888, 14, 122, "Text"],
+Cell[21739, 520, 1275, 28, 137, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23051, 553, 992, 13, 61, "Section"],
+Cell[24046, 568, 794, 17, 31, "Text"],
+Cell[CellGroupData[{
+Cell[24865, 589, 482, 11, 29, "Input"],
+Cell[25350, 602, 326, 9, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25713, 616, 722, 19, 50, "Input"],
+Cell[26438, 637, 2150, 42, 400, "Output"]
+}, Open  ]],
+Cell[28603, 682, 109, 1, 28, "Text"],
+Cell[CellGroupData[{
+Cell[28737, 687, 878, 21, 50, "Input"],
+Cell[29618, 710, 2249, 43, 400, "Output"]
+}, Open  ]],
+Cell[31882, 756, 137, 1, 28, "Text"],
+Cell[CellGroupData[{
+Cell[32044, 761, 626, 17, 29, "Input"],
+Cell[32673, 780, 2156, 43, 282, "Output"]
+}, Open  ]],
+Cell[34844, 826, 212, 5, 47, "Text"],
+Cell[CellGroupData[{
+Cell[35081, 835, 280, 7, 29, "Input"],
+Cell[35364, 844, 310, 7, 28, "Output"]
+}, Open  ]],
+Cell[35689, 854, 436, 7, 47, "Text"],
+Cell[36128, 863, 1627, 46, 59, "Text"],
+Cell[CellGroupData[{
+Cell[37780, 913, 298, 7, 29, "Input"],
+Cell[38081, 922, 397, 9, 28, "Output"]
+}, Open  ]],
+Cell[38493, 934, 4665, 141, 210, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43195, 1080, 451, 8, 61, "Section"],
+Cell[43649, 1090, 758, 11, 66, "Text"],
+Cell[44410, 1103, 357, 9, 29, "Input"],
+Cell[CellGroupData[{
+Cell[44792, 1116, 1415, 39, 50, "Input"],
+Cell[46210, 1157, 2570, 50, 420, "Output"]
+}, Open  ]],
+Cell[48795, 1210, 2742, 76, 180, "Text"],
+Cell[51540, 1288, 3874, 90, 423, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[55451, 1383, 494, 9, 61, "Section"],
+Cell[55948, 1394, 5955, 183, 362, "Text"],
+Cell[61906, 1579, 578, 15, 47, "Text"],
+Cell[62487, 1596, 329, 10, 29, "Input"],
+Cell[62819, 1608, 282, 7, 43, "Input"],
+Cell[CellGroupData[{
+Cell[63126, 1619, 126, 2, 29, "Input"],
+Cell[63255, 1623, 134, 2, 28, "Output"]
+}, Open  ]],
+Cell[63404, 1628, 789, 23, 47, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[64230, 1656, 530, 10, 61, "Section"],
+Cell[64763, 1668, 1524, 34, 47, "Text"],
+Cell[66290, 1704, 510, 15, 43, "Input"],
+Cell[CellGroupData[{
+Cell[66825, 1723, 1703, 48, 64, "Input"],
+Cell[68531, 1773, 2893, 56, 493, "Output"]
+}, Open  ]],
+Cell[71439, 1832, 86, 1, 28, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
